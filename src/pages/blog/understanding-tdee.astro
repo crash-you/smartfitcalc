@@ -1,0 +1,226 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Understanding TDEE: A Complete Beginner's Guide | SmartFitCalc";
+const description =
+    "Learn what TDEE is, how to calculate it, and why it's the foundation of any successful diet or fitness program.";
+---
+
+<BaseLayout title={title} description={description}>
+    <article class="mx-auto max-w-3xl">
+        <header class="mb-10 text-center">
+            <a href="/blog" class="text-sm text-primary-600 hover:underline"
+                >← Back to Blog</a
+            >
+            <h1 class="mt-4 mb-4 text-4xl font-extrabold text-gray-800">
+                Understanding TDEE: A Complete Beginner's Guide
+            </h1>
+            <div class="text-gray-500 text-sm">December 2024 • 6 min read</div>
+        </header>
+
+        <div class="prose prose-lg max-w-none text-gray-600">
+            <p class="lead text-xl">
+                If you've ever wondered why your diet isn't working or how many
+                calories you actually need, the answer lies in understanding
+                your TDEE. This guide will break down everything you need to
+                know.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                What Exactly is TDEE?
+            </h2>
+            <p>
+                TDEE stands for <strong>Total Daily Energy Expenditure</strong>.
+                Simply put, it's the total number of calories your body burns in
+                a single day, including everything from breathing and digesting
+                food to exercising and walking up stairs.
+            </p>
+            <p>
+                Think of TDEE as your body's daily calorie budget. If you eat
+                exactly this amount, you'll maintain your current weight. Eat
+                less, and you'll lose weight. Eat more, and you'll gain weight.
+            </p>
+
+            <div
+                class="rounded-xl bg-primary-50 p-6 my-6 border border-primary-100"
+            >
+                <p class="font-bold text-primary-800 mb-2">The Simple Truth:</p>
+                <ul class="text-primary-700 space-y-1">
+                    <li>• Eat below TDEE = Weight loss</li>
+                    <li>• Eat at TDEE = Maintain weight</li>
+                    <li>• Eat above TDEE = Weight gain</li>
+                </ul>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                The Four Components of TDEE
+            </h2>
+            <p>Your TDEE is made up of four distinct parts:</p>
+
+            <h3 class="text-xl font-bold text-gray-700 mt-6 mb-2">
+                1. Basal Metabolic Rate (BMR) - 60-70%
+            </h3>
+            <p>
+                This is the largest component—the calories your body burns just
+                to stay alive while at complete rest. Even if you laid in bed
+                all day doing nothing, your heart would still beat, your lungs
+                would breathe, and your cells would repair themselves. All of
+                this requires energy.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-700 mt-6 mb-2">
+                2. Thermic Effect of Food (TEF) - ~10%
+            </h3>
+            <p>
+                Digesting food actually burns calories! Protein takes the most
+                energy to digest (20-30%), followed by carbs (5-10%), then fats
+                (0-3%). This is one reason high-protein diets are effective for
+                weight loss.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-700 mt-6 mb-2">
+                3. Non-Exercise Activity Thermogenesis (NEAT) - 15-30%
+            </h3>
+            <p>
+                This includes all the calories you burn through daily activities
+                that aren't exercise: walking to your car, typing, fidgeting,
+                standing, even thinking. NEAT varies hugely between people and
+                can account for hundreds of calories difference per day.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-700 mt-6 mb-2">
+                4. Exercise Activity (EAT) - 5-10%
+            </h3>
+            <p>
+                Surprisingly, intentional exercise typically accounts for the
+                smallest portion of TDEE for most people. That 1-hour gym
+                session might burn 300-500 calories, but your daily NEAT and BMR
+                do most of the heavy lifting.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                How to Calculate Your TDEE
+            </h2>
+            <p>
+                The most common method is the <strong
+                    >Mifflin-St Jeor equation</strong
+                >, which calculates your BMR based on age, weight, height, and
+                gender. Then you multiply by an activity factor:
+            </p>
+            <ul>
+                <li>Sedentary (desk job): BMR × 1.2</li>
+                <li>Lightly active: BMR × 1.375</li>
+                <li>Moderately active: BMR × 1.55</li>
+                <li>Very active: BMR × 1.725</li>
+                <li>Extremely active: BMR × 1.9</li>
+            </ul>
+
+            <p class="mt-4">
+                The easiest way? Use our <a
+                    href="/"
+                    class="text-primary-600 hover:underline font-medium"
+                    >free TDEE calculator</a
+                > which does all the math for you instantly.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                Why TDEE Matters for Your Goals
+            </h2>
+
+            <h3 class="text-xl font-bold text-gray-700 mt-6 mb-2">
+                For Weight Loss
+            </h3>
+            <p>
+                Create a caloric deficit by eating 300-500 calories below your
+                TDEE. This results in steady, sustainable fat loss of about
+                0.5-1 lb per week without extreme hunger or muscle loss.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-700 mt-6 mb-2">
+                For Muscle Gain
+            </h3>
+            <p>
+                Eat 200-400 calories above your TDEE to provide your body with
+                the extra energy needed for muscle growth. Combined with
+                resistance training and adequate protein, this leads to lean
+                mass gains.
+            </p>
+
+            <h3 class="text-xl font-bold text-gray-700 mt-6 mb-2">
+                For Maintenance
+            </h3>
+            <p>
+                Eating at your TDEE maintains your current weight. This is
+                useful after reaching your goal or during recovery phases.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                Common TDEE Mistakes to Avoid
+            </h2>
+            <ol>
+                <li>
+                    <strong>Overestimating activity level:</strong> Be honest—most
+                    people are less active than they think.
+                </li>
+                <li>
+                    <strong>Not adjusting over time:</strong> As you lose weight,
+                    your TDEE decreases. Recalculate every 4-8 weeks.
+                </li>
+                <li>
+                    <strong>Ignoring NEAT:</strong> Try to increase daily movement—park
+                    farther away, take stairs, walk during calls.
+                </li>
+                <li>
+                    <strong>Cutting too aggressively:</strong> Eating way below TDEE
+                    slows metabolism and causes muscle loss.
+                </li>
+            </ol>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                The Bottom Line
+            </h2>
+            <p>
+                Understanding your TDEE is arguably the most important concept
+                in nutrition. It removes the guesswork from dieting and gives
+                you a concrete number to work with. Whether your goal is fat
+                loss, muscle gain, or maintaining your current physique, TDEE is
+                your starting point.
+            </p>
+            <p>
+                Ready to find your number? <a
+                    href="/"
+                    class="text-primary-600 hover:underline font-medium"
+                    >Calculate your TDEE now →</a
+                >
+            </p>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-gray-200">
+            <h3 class="font-bold text-gray-800 mb-4">Related Articles</h3>
+            <div class="grid gap-4 md:grid-cols-2">
+                <a
+                    href="/blog/calculate-macros-weight-loss"
+                    class="block rounded-xl border border-gray-200 p-4 hover:border-primary-300"
+                >
+                    <h4 class="font-medium text-gray-800">
+                        How to Calculate Macros for Weight Loss
+                    </h4>
+                    <p class="text-sm text-gray-500">
+                        The next step after finding your TDEE
+                    </p>
+                </a>
+                <a
+                    href="/blog/calorie-counting-mistakes"
+                    class="block rounded-xl border border-gray-200 p-4 hover:border-primary-300"
+                >
+                    <h4 class="font-medium text-gray-800">
+                        5 Common Calorie Counting Mistakes
+                    </h4>
+                    <p class="text-sm text-gray-500">
+                        Avoid these tracking pitfalls
+                    </p>
+                </a>
+            </div>
+        </div>
+    </article>
+</BaseLayout>

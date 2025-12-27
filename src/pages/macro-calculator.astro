@@ -1,0 +1,644 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Macro Calculator - Calculate Your Daily Macros | SmartFitCalc";
+const description =
+    "Free macro calculator to determine your optimal protein, carbs, and fat intake. Choose from balanced, low-fat, keto, or high protein diet plans.";
+---
+
+<BaseLayout title={title} description={description}>
+    <!-- Hero Section -->
+    <section class="mb-12 text-center">
+        <h1
+            class="mb-4 bg-gradient-to-r from-accent-500 to-primary-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+        >
+            Macro Calculator
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            Calculate your optimal <strong>macronutrient intake</strong> based on
+            your daily calorie needs and dietary goals. Get personalized carbs, protein,
+            and fat recommendations.
+        </p>
+    </section>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+        <!-- Calculator Form -->
+        <div
+            class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:p-8"
+        >
+            <h2 class="mb-6 text-2xl font-bold text-gray-800">
+                Enter Your Details
+            </h2>
+
+            <form id="macro-form" class="space-y-6">
+                <!-- Gender -->
+                <div>
+                    <label class="mb-3 block text-sm font-medium text-gray-700"
+                        >Gender</label
+                    >
+                    <div class="flex gap-4">
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="male"
+                                checked
+                                class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                            />
+                            <span class="text-gray-700">Male</span>
+                        </label>
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="female"
+                                class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                            />
+                            <span class="text-gray-700">Female</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Age -->
+                <div>
+                    <label
+                        for="age"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Age</label
+                    >
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        min="15"
+                        max="100"
+                        placeholder="25"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                </div>
+
+                <!-- Height -->
+                <div>
+                    <label
+                        for="height"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Height (cm)</label
+                    >
+                    <input
+                        type="number"
+                        id="height"
+                        name="height"
+                        min="100"
+                        max="250"
+                        placeholder="175"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                </div>
+
+                <!-- Weight -->
+                <div>
+                    <label
+                        for="weight"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Weight (kg)</label
+                    >
+                    <input
+                        type="number"
+                        id="weight"
+                        name="weight"
+                        min="30"
+                        max="300"
+                        step="0.1"
+                        placeholder="70"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                </div>
+
+                <!-- Activity Level -->
+                <div>
+                    <label
+                        for="activity"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Activity Level</label
+                    >
+                    <select
+                        id="activity"
+                        name="activity"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    >
+                        <option value="1.2"
+                            >Sedentary (little or no exercise)</option
+                        >
+                        <option value="1.375"
+                            >Lightly Active (1-3 days/week)</option
+                        >
+                        <option value="1.55" selected
+                            >Moderately Active (3-5 days/week)</option
+                        >
+                        <option value="1.725"
+                            >Very Active (6-7 days/week)</option
+                        >
+                        <option value="1.9"
+                            >Extra Active (very intense exercise)</option
+                        >
+                    </select>
+                </div>
+
+                <!-- Goal -->
+                <div>
+                    <label
+                        for="goal"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Your Goal</label
+                    >
+                    <select
+                        id="goal"
+                        name="goal"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    >
+                        <option value="maintain">Maintain Weight</option>
+                        <option value="cut">Lose Weight (Cut)</option>
+                        <option value="bulk">Gain Muscle (Bulk)</option>
+                    </select>
+                </div>
+
+                <!-- Diet Type -->
+                <div>
+                    <label
+                        for="diet"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Diet Type</label
+                    >
+                    <select
+                        id="diet"
+                        name="diet"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    >
+                        <option value="balanced">Balanced (40/30/30)</option>
+                        <option value="lowfat">Low Fat (50/30/20)</option>
+                        <option value="lowcarb"
+                            >Low Carb / Keto (10/40/50)</option
+                        >
+                        <option value="highprotein"
+                            >High Protein (25/45/30)</option
+                        >
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    class="w-full rounded-xl bg-gradient-to-r from-accent-500 to-primary-500 px-6 py-4 font-semibold text-white shadow-lg transition hover:from-accent-600 hover:to-primary-600 hover:shadow-xl active:scale-[0.98]"
+                >
+                    Calculate Macros
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden space-y-6">
+            <!-- TDEE Card -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+            >
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500">
+                            Daily Calorie Target
+                        </p>
+                        <p class="text-3xl font-bold text-gray-800">
+                            <span id="calorie-value">0</span>
+                            <span class="text-lg text-gray-500">kcal</span>
+                        </p>
+                    </div>
+                    <div
+                        class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary-100 to-accent-100"
+                    >
+                        <svg
+                            class="h-7 w-7 text-primary-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
+                            ></path>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
+                            ></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Macro Cards -->
+            <div class="grid gap-4">
+                <!-- Carbs -->
+                <div
+                    class="rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-amber-100 p-5"
+                >
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-full bg-amber-200"
+                            >
+                                <span class="text-sm font-bold text-amber-700"
+                                    >C</span
+                                >
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-amber-700">
+                                    Carbohydrates
+                                </p>
+                                <p class="text-2xl font-bold text-amber-800">
+                                    <span id="carbs-grams">0</span>g
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p
+                                class="text-2xl font-bold text-amber-600"
+                                id="carbs-percent"
+                            >
+                                0%
+                            </p>
+                            <p class="text-sm text-amber-600" id="carbs-kcal">
+                                0 kcal
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Protein -->
+                <div
+                    class="rounded-xl border border-red-200 bg-gradient-to-r from-red-50 to-red-100 p-5"
+                >
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-full bg-red-200"
+                            >
+                                <span class="text-sm font-bold text-red-700"
+                                    >P</span
+                                >
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-red-700">
+                                    Protein
+                                </p>
+                                <p class="text-2xl font-bold text-red-800">
+                                    <span id="protein-grams">0</span>g
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p
+                                class="text-2xl font-bold text-red-600"
+                                id="protein-percent"
+                            >
+                                0%
+                            </p>
+                            <p class="text-sm text-red-600" id="protein-kcal">
+                                0 kcal
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fat -->
+                <div
+                    class="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-blue-100 p-5"
+                >
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-200"
+                            >
+                                <span class="text-sm font-bold text-blue-700"
+                                    >F</span
+                                >
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-blue-700">
+                                    Fat
+                                </p>
+                                <p class="text-2xl font-bold text-blue-800">
+                                    <span id="fat-grams">0</span>g
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p
+                                class="text-2xl font-bold text-blue-600"
+                                id="fat-percent"
+                            >
+                                0%
+                            </p>
+                            <p class="text-sm text-blue-600" id="fat-kcal">
+                                0 kcal
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Doughnut Chart -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+            >
+                <h3
+                    class="mb-4 text-center text-lg font-semibold text-gray-800"
+                >
+                    Macro Breakdown
+                </h3>
+                <div class="mx-auto max-w-xs">
+                    <canvas id="macro-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diet Types Info -->
+    <section class="mt-16">
+        <h2 class="mb-8 text-center text-2xl font-bold text-gray-800">
+            Diet Types Explained
+        </h2>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div
+                class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+            >
+                <div class="mb-3 flex items-center gap-2">
+                    <h3 class="font-semibold text-gray-800">Balanced</h3>
+                </div>
+                <p class="text-sm text-gray-600">
+                    40% carbs, 30% protein, 30% fat. Great for general health
+                    and sustainable eating.
+                </p>
+            </div>
+
+            <div
+                class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+            >
+                <div class="mb-3 flex items-center gap-2">
+                    <h3 class="font-semibold text-gray-800">Low Fat</h3>
+                </div>
+                <p class="text-sm text-gray-600">
+                    50% carbs, 30% protein, 20% fat. Ideal for those who prefer
+                    carb-rich foods.
+                </p>
+            </div>
+
+            <div
+                class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+            >
+                <div class="mb-3 flex items-center gap-2">
+                    <h3 class="font-semibold text-gray-800">Low Carb / Keto</h3>
+                </div>
+                <p class="text-sm text-gray-600">
+                    10% carbs, 40% protein, 50% fat. For ketogenic or very low
+                    carb diets.
+                </p>
+            </div>
+
+            <div
+                class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+            >
+                <div class="mb-3 flex items-center gap-2">
+                    <h3 class="font-semibold text-gray-800">High Protein</h3>
+                </div>
+                <p class="text-sm text-gray-600">
+                    25% carbs, 45% protein, 30% fat. Best for muscle building
+                    and athletes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="mt-12">
+        <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">
+            Related Calculators
+        </h2>
+        <div class="grid gap-6 md:grid-cols-2">
+            <a
+                href="/"
+                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 transition group-hover:bg-primary-200"
+                    >
+                        <svg
+                            class="h-6 w-6 text-primary-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-gray-800 group-hover:text-primary-600"
+                        >
+                            TDEE Calculator
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Calculate your total daily energy expenditure
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="/body-fat-calculator"
+                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary-100 transition group-hover:bg-secondary-200"
+                    >
+                        <svg
+                            class="h-6 w-6 text-secondary-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-gray-800 group-hover:text-primary-600"
+                        >
+                            Body Fat Calculator
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Estimate your body fat percentage using the US Navy
+                            method
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+</BaseLayout>
+
+<script>
+    // Macro Calculator Logic
+    const form = document.getElementById("macro-form") as HTMLFormElement;
+    const resultsSection = document.getElementById("results-section");
+
+    // Diet macro ratios: [carbs%, protein%, fat%]
+    const dietRatios: Record<string, [number, number, number]> = {
+        balanced: [40, 30, 30],
+        lowfat: [50, 30, 20],
+        lowcarb: [10, 40, 50],
+        highprotein: [25, 45, 30],
+    };
+
+    let macroChart: any = null;
+
+    form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const gender = formData.get("gender") as string;
+        const age = parseFloat(formData.get("age") as string);
+        const height = parseFloat(formData.get("height") as string);
+        const weight = parseFloat(formData.get("weight") as string);
+        const activity = parseFloat(formData.get("activity") as string);
+        const goal = formData.get("goal") as string;
+        const diet = formData.get("diet") as string;
+
+        // Calculate BMR using Mifflin-St Jeor
+        let bmr: number;
+        if (gender === "male") {
+            bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+        } else {
+            bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+        }
+
+        // Calculate TDEE
+        let tdee = Math.round(bmr * activity);
+
+        // Adjust for goal
+        let calories: number;
+        switch (goal) {
+            case "cut":
+                calories = tdee - 500;
+                break;
+            case "bulk":
+                calories = tdee + 300;
+                break;
+            default:
+                calories = tdee;
+        }
+
+        // Get macro ratios
+        const [carbsPercent, proteinPercent, fatPercent] = dietRatios[diet];
+
+        // Calculate macros in grams
+        // Carbs: 4 kcal/g, Protein: 4 kcal/g, Fat: 9 kcal/g
+        const carbsKcal = Math.round(calories * (carbsPercent / 100));
+        const proteinKcal = Math.round(calories * (proteinPercent / 100));
+        const fatKcal = Math.round(calories * (fatPercent / 100));
+
+        const carbsGrams = Math.round(carbsKcal / 4);
+        const proteinGrams = Math.round(proteinKcal / 4);
+        const fatGrams = Math.round(fatKcal / 9);
+
+        // Update DOM
+        document.getElementById("calorie-value")!.textContent =
+            calories.toString();
+
+        document.getElementById("carbs-grams")!.textContent =
+            carbsGrams.toString();
+        document.getElementById("carbs-percent")!.textContent =
+            `${carbsPercent}%`;
+        document.getElementById("carbs-kcal")!.textContent =
+            `${carbsKcal} kcal`;
+
+        document.getElementById("protein-grams")!.textContent =
+            proteinGrams.toString();
+        document.getElementById("protein-percent")!.textContent =
+            `${proteinPercent}%`;
+        document.getElementById("protein-kcal")!.textContent =
+            `${proteinKcal} kcal`;
+
+        document.getElementById("fat-grams")!.textContent = fatGrams.toString();
+        document.getElementById("fat-percent")!.textContent = `${fatPercent}%`;
+        document.getElementById("fat-kcal")!.textContent = `${fatKcal} kcal`;
+
+        // Show results
+        resultsSection?.classList.remove("hidden");
+
+        // Create doughnut chart
+        const ctx = document.getElementById("macro-chart") as HTMLCanvasElement;
+
+        if (macroChart) {
+            macroChart.destroy();
+        }
+
+        macroChart = new (window as any).Chart(ctx, {
+            type: "doughnut",
+            data: {
+                labels: ["Carbs", "Protein", "Fat"],
+                datasets: [
+                    {
+                        data: [carbsPercent, proteinPercent, fatPercent],
+                        backgroundColor: [
+                            "rgba(245, 158, 11, 0.8)",
+                            "rgba(239, 68, 68, 0.8)",
+                            "rgba(59, 130, 246, 0.8)",
+                        ],
+                        borderColor: [
+                            "rgb(245, 158, 11)",
+                            "rgb(239, 68, 68)",
+                            "rgb(59, 130, 246)",
+                        ],
+                        borderWidth: 2,
+                        hoverOffset: 10,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                cutout: "60%",
+                plugins: {
+                    legend: {
+                        position: "bottom",
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                        },
+                    },
+                },
+            },
+        });
+
+        // Scroll to results
+        resultsSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+</script>

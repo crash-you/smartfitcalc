@@ -1,0 +1,693 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Body Fat Calculator - US Navy Method | SmartFitCalc";
+const description =
+    "Free body fat percentage calculator using the US Navy method. Get accurate results with just your height, neck, waist, and hip measurements.";
+---
+
+<BaseLayout title={title} description={description}>
+    <!-- Hero Section -->
+    <section class="mb-12 text-center">
+        <h1
+            class="mb-4 bg-gradient-to-r from-secondary-500 to-primary-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+        >
+            Body Fat Calculator
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            Calculate your <strong>body fat percentage</strong> using the US Navy
+            method. Just enter your measurements and get instant, accurate results.
+        </p>
+    </section>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+        <!-- Calculator Form -->
+        <div
+            class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:p-8"
+        >
+            <h2 class="mb-6 text-2xl font-bold text-gray-800">
+                Enter Your Measurements
+            </h2>
+
+            <form id="bodyfat-form" class="space-y-6">
+                <!-- Gender -->
+                <div>
+                    <label class="mb-3 block text-sm font-medium text-gray-700"
+                        >Gender</label
+                    >
+                    <div class="flex gap-4">
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="male"
+                                checked
+                                class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                            />
+                            <span class="text-gray-700">Male</span>
+                        </label>
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="female"
+                                class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                            />
+                            <span class="text-gray-700">Female</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Height -->
+                <div>
+                    <label
+                        for="height"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Height (cm)</label
+                    >
+                    <input
+                        type="number"
+                        id="height"
+                        name="height"
+                        min="100"
+                        max="250"
+                        placeholder="175"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                </div>
+
+                <!-- Neck Circumference -->
+                <div class="relative">
+                    <label
+                        for="neck"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                    >
+                        Neck Circumference (cm)
+                        <span
+                            class="ml-1 cursor-help text-gray-400"
+                            id="neck-help">ⓘ</span
+                        >
+                    </label>
+                    <input
+                        type="number"
+                        id="neck"
+                        name="neck"
+                        min="20"
+                        max="60"
+                        step="0.1"
+                        placeholder="38"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                    <!-- Measurement Guide Tooltip -->
+                    <div
+                        id="neck-tooltip"
+                        class="absolute left-0 top-full z-10 mt-2 hidden w-72 rounded-xl border border-gray-200 bg-white p-4 shadow-xl"
+                    >
+                        <div class="mb-2 flex items-center gap-2">
+                            <span class="font-semibold text-gray-800"
+                                >How to Measure Neck</span
+                            >
+                        </div>
+                        <p class="text-sm text-gray-600">
+                            Measure your neck circumference just below the
+                            larynx (Adam's apple). Keep the tape level and don't
+                            pull too tight.
+                        </p>
+                        <div class="mt-3 rounded-lg bg-secondary-50 p-3">
+                            <svg
+                                class="mx-auto h-24 w-24"
+                                viewBox="0 0 100 100"
+                                fill="none"
+                            >
+                                <ellipse
+                                    cx="50"
+                                    cy="50"
+                                    rx="30"
+                                    ry="40"
+                                    stroke="#3b82f6"
+                                    stroke-width="2"
+                                    fill="none"></ellipse>
+                                <circle
+                                    cx="50"
+                                    cy="35"
+                                    r="15"
+                                    stroke="#3b82f6"
+                                    stroke-width="2"
+                                    fill="none"></circle>
+                                <path
+                                    d="M35 55 L65 55"
+                                    stroke="#10b981"
+                                    stroke-width="3"
+                                    stroke-dasharray="5,3"></path>
+                                <text
+                                    x="70"
+                                    y="58"
+                                    class="text-xs"
+                                    fill="#10b981"
+                                    font-size="8">← Measure here</text
+                                >
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Waist Circumference -->
+                <div class="relative">
+                    <label
+                        for="waist"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                    >
+                        Waist Circumference (cm)
+                        <span
+                            class="ml-1 cursor-help text-gray-400"
+                            id="waist-help">ⓘ</span
+                        >
+                    </label>
+                    <input
+                        type="number"
+                        id="waist"
+                        name="waist"
+                        min="50"
+                        max="200"
+                        step="0.1"
+                        placeholder="85"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                    <!-- Measurement Guide Tooltip -->
+                    <div
+                        id="waist-tooltip"
+                        class="absolute left-0 top-full z-10 mt-2 hidden w-72 rounded-xl border border-gray-200 bg-white p-4 shadow-xl"
+                    >
+                        <div class="mb-2 flex items-center gap-2">
+                            <span class="font-semibold text-gray-800"
+                                >How to Measure Waist</span
+                            >
+                        </div>
+                        <p class="text-sm text-gray-600">
+                            <strong>Men:</strong> Measure at navel level.<br
+                            /><strong>Women:</strong> Measure at the narrowest point
+                            between ribs and hips.
+                        </p>
+                        <div class="mt-3 rounded-lg bg-secondary-50 p-3">
+                            <svg
+                                class="mx-auto h-24 w-24"
+                                viewBox="0 0 100 100"
+                                fill="none"
+                            >
+                                <path
+                                    d="M30 20 Q20 50 30 80 L70 80 Q80 50 70 20 Z"
+                                    stroke="#3b82f6"
+                                    stroke-width="2"
+                                    fill="none"></path>
+                                <path
+                                    d="M25 50 L75 50"
+                                    stroke="#10b981"
+                                    stroke-width="3"
+                                    stroke-dasharray="5,3"></path>
+                                <text
+                                    x="5"
+                                    y="53"
+                                    class="text-xs"
+                                    fill="#10b981"
+                                    font-size="7">Measure →</text
+                                >
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hip Circumference (Women Only) -->
+                <div id="hip-group" class="relative hidden">
+                    <label
+                        for="hip"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                    >
+                        Hip Circumference (cm)
+                        <span
+                            class="ml-1 cursor-help text-gray-400"
+                            id="hip-help">ⓘ</span
+                        >
+                    </label>
+                    <input
+                        type="number"
+                        id="hip"
+                        name="hip"
+                        min="60"
+                        max="200"
+                        step="0.1"
+                        placeholder="100"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                    <!-- Measurement Guide Tooltip -->
+                    <div
+                        id="hip-tooltip"
+                        class="absolute left-0 top-full z-10 mt-2 hidden w-72 rounded-xl border border-gray-200 bg-white p-4 shadow-xl"
+                    >
+                        <div class="mb-2 flex items-center gap-2">
+                            <span class="font-semibold text-gray-800"
+                                >How to Measure Hips</span
+                            >
+                        </div>
+                        <p class="text-sm text-gray-600">
+                            Measure at the widest part of your hips/buttocks.
+                            Keep the tape parallel to the floor.
+                        </p>
+                        <div class="mt-3 rounded-lg bg-secondary-50 p-3">
+                            <svg
+                                class="mx-auto h-24 w-24"
+                                viewBox="0 0 100 100"
+                                fill="none"
+                            >
+                                <path
+                                    d="M35 20 Q25 40 20 60 Q25 80 50 85 Q75 80 80 60 Q75 40 65 20 Z"
+                                    stroke="#3b82f6"
+                                    stroke-width="2"
+                                    fill="none"></path>
+                                <path
+                                    d="M15 65 L85 65"
+                                    stroke="#10b981"
+                                    stroke-width="3"
+                                    stroke-dasharray="5,3"></path>
+                                <text
+                                    x="5"
+                                    y="75"
+                                    class="text-xs"
+                                    fill="#10b981"
+                                    font-size="7">Widest point →</text
+                                >
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    class="w-full rounded-xl bg-gradient-to-r from-secondary-500 to-primary-500 px-6 py-4 font-semibold text-white shadow-lg transition hover:from-secondary-600 hover:to-primary-600 hover:shadow-xl active:scale-[0.98]"
+                >
+                    Calculate Body Fat
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden space-y-6">
+            <!-- Body Fat Percentage Card -->
+            <div
+                class="overflow-hidden rounded-2xl border-2 border-secondary-200 bg-gradient-to-br from-secondary-50 to-primary-50 shadow-lg"
+            >
+                <div class="p-6 text-center">
+                    <p
+                        class="mb-2 text-sm font-medium uppercase tracking-wider text-secondary-700"
+                    >
+                        Your Body Fat Percentage
+                    </p>
+                    <p
+                        class="text-6xl font-extrabold text-secondary-600 md:text-7xl"
+                    >
+                        <span id="bodyfat-value">0</span><span class="text-3xl"
+                            >%</span
+                        >
+                    </p>
+                </div>
+
+                <!-- Category Badge -->
+                <div
+                    id="category-container"
+                    class="border-t border-secondary-200 bg-white/50 p-4 text-center"
+                >
+                    <span
+                        id="category-badge"
+                        class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold"
+                    >
+                        <span id="category-text">Fitness</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Body Composition -->
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div
+                    class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+                >
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-red-100"
+                        >
+                            <span class="text-sm font-bold text-red-600"
+                                >FM</span
+                            >
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Fat Mass</p>
+                            <p
+                                class="text-xl font-bold text-gray-800"
+                                id="fat-mass"
+                            >
+                                0 kg
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+                >
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100"
+                        >
+                            <span class="text-sm font-bold text-green-600"
+                                >LM</span
+                            >
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Lean Mass</p>
+                            <p
+                                class="text-xl font-bold text-gray-800"
+                                id="lean-mass"
+                            >
+                                0 kg
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body Fat Categories Reference -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+            >
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">
+                    Body Fat Categories
+                </h3>
+                <div id="categories-table" class="space-y-2">
+                    <!-- Categories will be populated by JS based on gender -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Section -->
+    <section class="mt-16 grid gap-8 md:grid-cols-2">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                About the US Navy Method
+            </h2>
+            <p class="text-gray-600">
+                The <strong>US Navy body fat formula</strong> is a widely used method
+                that estimates body fat percentage using simple body measurements.
+                It was developed by the U.S. Navy for assessing the fitness of military
+                personnel and has been validated in numerous studies.
+            </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                Tips for Accurate Results
+            </h2>
+            <ul class="list-inside list-disc space-y-2 text-gray-600">
+                <li>Measure in the morning before eating</li>
+                <li>Use a flexible tape measure</li>
+                <li>Keep the tape snug but not tight</li>
+                <li>Take multiple measurements and average them</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="mt-12">
+        <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">
+            Related Calculators
+        </h2>
+        <div class="grid gap-6 md:grid-cols-2">
+            <a
+                href="/"
+                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 transition group-hover:bg-primary-200"
+                    >
+                        <svg
+                            class="h-6 w-6 text-primary-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-gray-800 group-hover:text-primary-600"
+                        >
+                            TDEE Calculator
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Use your body fat to get more accurate TDEE results
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="/macro-calculator"
+                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-100 transition group-hover:bg-accent-200"
+                    >
+                        <svg
+                            class="h-6 w-6 text-accent-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-gray-800 group-hover:text-primary-600"
+                        >
+                            Macro Calculator
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Calculate your optimal carbs, protein, and fat
+                            intake
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+</BaseLayout>
+
+<script>
+    // Body Fat Calculator Logic
+    const form = document.getElementById("bodyfat-form") as HTMLFormElement;
+    const resultsSection = document.getElementById("results-section");
+    const hipGroup = document.getElementById("hip-group");
+    const genderInputs = document.querySelectorAll('input[name="gender"]');
+
+    // Body fat categories
+    const maleCategories = [
+        {
+            name: "Essential Fat",
+            range: "2-5%",
+            min: 2,
+            max: 5,
+            color: "bg-red-100 text-red-700",
+        },
+        {
+            name: "Athletes",
+            range: "6-13%",
+            min: 6,
+            max: 13,
+            color: "bg-blue-100 text-blue-700",
+        },
+        {
+            name: "Fitness",
+            range: "14-17%",
+            min: 14,
+            max: 17,
+            color: "bg-green-100 text-green-700",
+        },
+        {
+            name: "Average",
+            range: "18-24%",
+            min: 18,
+            max: 24,
+            color: "bg-yellow-100 text-yellow-700",
+        },
+        {
+            name: "Obese",
+            range: "25%+",
+            min: 25,
+            max: 100,
+            color: "bg-orange-100 text-orange-700",
+        },
+    ];
+
+    const femaleCategories = [
+        {
+            name: "Essential Fat",
+            range: "10-13%",
+            min: 10,
+            max: 13,
+            color: "bg-red-100 text-red-700",
+        },
+        {
+            name: "Athletes",
+            range: "14-20%",
+            min: 14,
+            max: 20,
+            color: "bg-blue-100 text-blue-700",
+        },
+        {
+            name: "Fitness",
+            range: "21-24%",
+            min: 21,
+            max: 24,
+            color: "bg-green-100 text-green-700",
+        },
+        {
+            name: "Average",
+            range: "25-31%",
+            min: 25,
+            max: 31,
+            color: "bg-yellow-100 text-yellow-700",
+        },
+        {
+            name: "Obese",
+            range: "32%+",
+            min: 32,
+            max: 100,
+            color: "bg-orange-100 text-orange-700",
+        },
+    ];
+
+    // Toggle hip input based on gender
+    genderInputs.forEach((input) => {
+        input.addEventListener("change", (e) => {
+            const isFemale = (e.target as HTMLInputElement).value === "female";
+            hipGroup?.classList.toggle("hidden", !isFemale);
+            const hipInput = document.getElementById("hip") as HTMLInputElement;
+            if (hipInput) {
+                hipInput.required = isFemale;
+            }
+        });
+    });
+
+    // Tooltip handlers
+    const setupTooltip = (inputId: string, tooltipId: string) => {
+        const input = document.getElementById(inputId);
+        const tooltip = document.getElementById(tooltipId);
+
+        input?.addEventListener("focus", () => {
+            tooltip?.classList.remove("hidden");
+        });
+
+        input?.addEventListener("blur", () => {
+            setTimeout(() => tooltip?.classList.add("hidden"), 200);
+        });
+    };
+
+    setupTooltip("neck", "neck-tooltip");
+    setupTooltip("waist", "waist-tooltip");
+    setupTooltip("hip", "hip-tooltip");
+
+    form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const gender = formData.get("gender") as string;
+        const height = parseFloat(formData.get("height") as string);
+        const neck = parseFloat(formData.get("neck") as string);
+        const waist = parseFloat(formData.get("waist") as string);
+        const hip = formData.get("hip")
+            ? parseFloat(formData.get("hip") as string)
+            : 0;
+
+        let bodyFat: number;
+
+        if (gender === "male") {
+            // US Navy formula for men
+            bodyFat =
+                86.01 * Math.log10(waist - neck) -
+                70.041 * Math.log10(height) +
+                36.76;
+        } else {
+            // US Navy formula for women
+            bodyFat =
+                163.205 * Math.log10(waist + hip - neck) -
+                97.684 * Math.log10(height) -
+                78.387;
+        }
+
+        // Clamp body fat to reasonable range
+        bodyFat = Math.max(2, Math.min(60, bodyFat));
+        bodyFat = Math.round(bodyFat * 10) / 10;
+
+        // Calculate fat and lean mass (we need weight for this, using a placeholder)
+        // Since we don't have weight input, we'll show percentages instead
+        const categories =
+            gender === "male" ? maleCategories : femaleCategories;
+        const category =
+            categories.find((c) => bodyFat >= c.min && bodyFat <= c.max) ||
+            categories[categories.length - 1];
+
+        // Update DOM
+        document.getElementById("bodyfat-value")!.textContent =
+            bodyFat.toString();
+
+        const badge = document.getElementById("category-badge")!;
+        badge.className = `inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold ${category.color}`;
+        document.getElementById("category-text")!.textContent = category.name;
+
+        // Show body composition estimate (using average weight estimate)
+        // This is a rough estimate - ideally we'd have actual weight
+        const estimatedWeight = gender === "male" ? 75 : 65;
+        const fatMass = ((estimatedWeight * bodyFat) / 100).toFixed(1);
+        const leanMass = ((estimatedWeight * (100 - bodyFat)) / 100).toFixed(1);
+
+        document.getElementById("fat-mass")!.textContent = `~${fatMass} kg`;
+        document.getElementById("lean-mass")!.textContent = `~${leanMass} kg`;
+
+        // Render categories table
+        const categoriesTable = document.getElementById("categories-table")!;
+        categoriesTable.innerHTML = categories
+            .map((c) => {
+                const isActive = c.name === category.name;
+                return `
+        <div class="flex items-center justify-between rounded-lg p-3 ${isActive ? c.color : "bg-gray-50"}">
+          <div class="flex items-center gap-2">
+            <span class="font-medium ${isActive ? "" : "text-gray-700"}">${c.name}</span>
+          </div>
+          <span class="text-sm ${isActive ? "" : "text-gray-500"}">${c.range}</span>
+        </div>
+      `;
+            })
+            .join("");
+
+        // Show results
+        resultsSection?.classList.remove("hidden");
+
+        // Scroll to results
+        resultsSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+</script>

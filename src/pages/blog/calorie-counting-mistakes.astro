@@ -1,0 +1,163 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "5 Common Mistakes When Counting Calories | SmartFitCalc";
+const description =
+    "Avoid these common calorie counting errors that prevent weight loss progress. Learn how to track accurately.";
+---
+
+<BaseLayout title={title} description={description}>
+    <article class="mx-auto max-w-3xl">
+        <header class="mb-10 text-center">
+            <a href="/blog" class="text-sm text-primary-600 hover:underline"
+                >← Back to Blog</a
+            >
+            <h1 class="mt-4 mb-4 text-4xl font-extrabold text-gray-800">
+                5 Common Mistakes When Counting Calories
+            </h1>
+            <div class="text-gray-500 text-sm">December 2024 • 5 min read</div>
+        </header>
+
+        <div class="prose prose-lg max-w-none text-gray-600">
+            <p class="lead text-xl">
+                "I'm eating 1,500 calories but not losing weight!" Sound
+                familiar? Chances are, one of these mistakes is the culprit.
+                Here's how to count calories accurately.
+            </p>
+
+            <div class="rounded-xl bg-red-50 p-5 my-6 border border-red-100">
+                <h3 class="font-bold text-red-800 mb-2">
+                    Mistake #1: Eyeballing Portions
+                </h3>
+                <p class="text-red-700">
+                    Studies show people underestimate portions by 30-50%. That
+                    "tablespoon" of peanut butter might actually be three. A
+                    food scale is a $20 investment that pays dividends.
+                </p>
+                <p class="text-red-600 text-sm mt-3 font-medium">
+                    Fix: Weigh everything (at least initially) to learn what
+                    portions really look like.
+                </p>
+            </div>
+
+            <div
+                class="rounded-xl bg-orange-50 p-5 my-6 border border-orange-100"
+            >
+                <h3 class="font-bold text-orange-800 mb-2">
+                    Mistake #2: Forgetting Cooking Oils and Sauces
+                </h3>
+                <p class="text-orange-700">
+                    A tablespoon of olive oil is 120 calories. Ranch dressing
+                    adds 150 per serving. These "invisible" calories accumulate
+                    fast.
+                </p>
+                <p class="text-orange-600 text-sm mt-3 font-medium">
+                    Fix: Log everything—oils, butter, dressings, condiments, and
+                    cooking sprays.
+                </p>
+            </div>
+
+            <div
+                class="rounded-xl bg-yellow-50 p-5 my-6 border border-yellow-100"
+            >
+                <h3 class="font-bold text-yellow-800 mb-2">
+                    Mistake #3: Not Logging BLTs (Bites, Licks, Tastes)
+                </h3>
+                <p class="text-yellow-700">
+                    That handful of chips, the bite of your partner's pasta,
+                    tasting while cooking—these add up. Even 200-300 untracked
+                    calories daily can stall progress.
+                </p>
+                <p class="text-yellow-600 text-sm mt-3 font-medium">
+                    Fix: Log everything immediately, even small tastes. Use a
+                    "miscellaneous" entry if needed.
+                </p>
+            </div>
+
+            <div class="rounded-xl bg-blue-50 p-5 my-6 border border-blue-100">
+                <h3 class="font-bold text-blue-800 mb-2">
+                    Mistake #4: Trusting Restaurant Calculations
+                </h3>
+                <p class="text-blue-700">
+                    Restaurant portions often exceed listed calories by 20-30%.
+                    Chefs don't measure ingredients precisely, and extra oil or
+                    butter is common.
+                </p>
+                <p class="text-blue-600 text-sm mt-3 font-medium">
+                    Fix: Add 20% to restaurant calorie counts as a buffer, or
+                    eat at home more often.
+                </p>
+            </div>
+
+            <div
+                class="rounded-xl bg-purple-50 p-5 my-6 border border-purple-100"
+            >
+                <h3 class="font-bold text-purple-800 mb-2">
+                    Mistake #5: Weekend Amnesia
+                </h3>
+                <p class="text-purple-700">
+                    Strict tracking Monday-Friday but relaxing on weekends? Two
+                    days of overeating can erase a week's deficit. A 3,000
+                    calorie Saturday undoes 5 days at a 500-calorie deficit.
+                </p>
+                <p class="text-purple-600 text-sm mt-3 font-medium">
+                    Fix: Track every day, or use weekly calorie averages to
+                    account for social eating.
+                </p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                The Accuracy Mindset
+            </h2>
+            <p>
+                The goal isn't perfection—it's awareness. Even if your tracking
+                isn't perfect, consistent tracking reveals patterns. You'll
+                learn which foods are calorie-dense, which meals keep you full,
+                and where your weak spots are.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                Quick Accuracy Tips
+            </h2>
+            <ul>
+                <li>Use a food scale for solid foods</li>
+                <li>Measure liquids with measuring cups</li>
+                <li>Log before you eat, not after</li>
+                <li>Use verified entries in food databases</li>
+                <li>When unsure, round up</li>
+            </ul>
+
+            <p class="mt-8">
+                Know your calorie needs first? <a
+                    href="/"
+                    class="text-primary-600 hover:underline font-medium"
+                    >Calculate your TDEE →</a
+                >
+            </p>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-gray-200">
+            <h3 class="font-bold text-gray-800 mb-4">Related Articles</h3>
+            <div class="grid gap-4 md:grid-cols-2">
+                <a
+                    href="/blog/calculate-macros-weight-loss"
+                    class="block rounded-xl border border-gray-200 p-4 hover:border-primary-300"
+                >
+                    <h4 class="font-medium text-gray-800">
+                        Calculate Macros for Weight Loss
+                    </h4>
+                    <p class="text-sm text-gray-500">Beyond just calories</p>
+                </a>
+                <a
+                    href="/blog/understanding-tdee"
+                    class="block rounded-xl border border-gray-200 p-4 hover:border-primary-300"
+                >
+                    <h4 class="font-medium text-gray-800">
+                        Understanding TDEE
+                    </h4>
+                    <p class="text-sm text-gray-500">Your calorie baseline</p>
+                </a>
+            </div>
+        </div>
+    </article>
+</BaseLayout>

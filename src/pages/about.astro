@@ -1,0 +1,265 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "About Us | SmartFitCalc";
+const description =
+    "Learn about SmartFitCalc - Free, accurate fitness calculators to help you achieve your health and fitness goals.";
+---
+
+<BaseLayout title={title} description={description}>
+    <div class="mx-auto max-w-4xl">
+        <h1 class="mb-8 text-4xl font-extrabold text-gray-800">
+            About SmartFitCalc
+        </h1>
+
+        <div class="prose prose-lg max-w-none text-gray-600">
+            <!-- Hero Section -->
+            <div
+                class="rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 p-8 mb-12"
+            >
+                <p class="text-xl leading-relaxed">
+                    SmartFitCalc provides <strong
+                        >free, accurate, and easy-to-use fitness calculators</strong
+                    >
+                    to help you understand your body's needs and achieve your health
+                    goals. Whether you're looking to lose weight, build muscle, or
+                    maintain a healthy lifestyle, our tools give you the data you
+                    need to succeed.
+                </p>
+            </div>
+
+            <!-- Our Mission -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Our Mission
+                </h2>
+                <p>
+                    We believe that everyone deserves access to accurate health
+                    and fitness information without barriers. Our mission is to
+                    provide scientifically-backed calculators that are:
+                </p>
+                <div class="grid gap-4 md:grid-cols-3 mt-6">
+                    <div
+                        class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+                    >
+                        <div
+                            class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 mb-4"
+                        >
+                            <svg
+                                class="h-6 w-6 text-primary-600"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">
+                            Accurate
+                        </h3>
+                        <p class="text-sm">
+                            Based on peer-reviewed scientific formulas and
+                            validated methods
+                        </p>
+                    </div>
+                    <div
+                        class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+                    >
+                        <div
+                            class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary-100 mb-4"
+                        >
+                            <svg
+                                class="h-6 w-6 text-secondary-600"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">
+                            Private
+                        </h3>
+                        <p class="text-sm">
+                            Your data stays in your browser - we never collect
+                            or store your information
+                        </p>
+                    </div>
+                    <div
+                        class="rounded-xl border border-gray-200 bg-white p-5 shadow-md"
+                    >
+                        <div
+                            class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-100 mb-4"
+                        >
+                            <svg
+                                class="h-6 w-6 text-accent-600"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Free</h3>
+                        <p class="text-sm">
+                            100% free to use with no hidden fees or
+                            subscriptions
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Our Calculators -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Our Calculators
+                </h2>
+
+                <div class="space-y-6">
+                    <div
+                        class="rounded-xl border border-gray-200 bg-white p-6 shadow-md"
+                    >
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            TDEE Calculator
+                        </h3>
+                        <p class="mb-3">
+                            Calculate your Total Daily Energy Expenditure using
+                            the industry-standard
+                            <strong>Mifflin-St Jeor equation</strong>. If you
+                            know your body fat percentage, we also use the more
+                            accurate <strong>Katch-McArdle formula</strong>.
+                        </p>
+                        <a
+                            href="/"
+                            class="text-primary-600 hover:underline font-medium"
+                            >Try TDEE Calculator →</a
+                        >
+                    </div>
+
+                    <div
+                        class="rounded-xl border border-gray-200 bg-white p-6 shadow-md"
+                    >
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            Macro Calculator
+                        </h3>
+                        <p class="mb-3">
+                            Get personalized macronutrient recommendations based
+                            on your goals. Choose from Balanced, Low Fat, Low
+                            Carb/Keto, or High Protein diet templates.
+                        </p>
+                        <a
+                            href="/macro-calculator"
+                            class="text-primary-600 hover:underline font-medium"
+                            >Try Macro Calculator →</a
+                        >
+                    </div>
+
+                    <div
+                        class="rounded-xl border border-gray-200 bg-white p-6 shadow-md"
+                    >
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
+                            Body Fat Calculator
+                        </h3>
+                        <p class="mb-3">
+                            Estimate your body fat percentage using the <strong
+                                >US Navy Method</strong
+                            >, a validated formula used by the United States
+                            military for fitness assessments.
+                        </p>
+                        <a
+                            href="/body-fat-calculator"
+                            class="text-primary-600 hover:underline font-medium"
+                            >Try Body Fat Calculator →</a
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- Methodology -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Our Methodology
+                </h2>
+                <p>
+                    All calculations on SmartFitCalc are based on peer-reviewed
+                    scientific research and validated formulas used by
+                    healthcare professionals worldwide:
+                </p>
+                <ul class="list-disc pl-6 mt-4 space-y-2">
+                    <li>
+                        <strong>Mifflin-St Jeor Equation (1990):</strong> Published
+                        in the American Journal of Clinical Nutrition, this formula
+                        is widely considered the most accurate for estimating BMR
+                        in the general population. Studies show it predicts measured
+                        resting metabolic rate within 10% for most adults.
+                    </li>
+                    <li>
+                        <strong>Katch-McArdle Formula:</strong> Provides more accurate
+                        results when body fat percentage is known, as it accounts
+                        for lean body mass which is the primary driver of metabolism.
+                    </li>
+                    <li>
+                        <strong>US Navy Body Fat Formula:</strong> Developed and validated
+                        by the United States Navy for service member fitness assessments,
+                        this circumference-based method correlates well with hydrostatic
+                        weighing.
+                    </li>
+                    <li>
+                        <strong>BMI Classification:</strong> Based on World Health
+                        Organization (WHO) international standards for adult body
+                        mass index categories.
+                    </li>
+                </ul>
+
+                <div
+                    class="rounded-xl bg-blue-50 border border-blue-200 p-6 mt-6"
+                >
+                    <h3 class="font-semibold text-blue-800 mb-2">
+                        Evidence-Based Approach
+                    </h3>
+                    <p class="text-blue-700 text-sm">
+                        Our calculators regularly undergo review to ensure they
+                        reflect current scientific consensus. All formulas are
+                        sourced from peer-reviewed publications and validated
+                        methodologies used in clinical practice. However, these
+                        tools provide estimates only—individual results may vary
+                        based on genetics, health conditions, and other factors.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Contact CTA -->
+            <section class="rounded-2xl bg-gray-100 p-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Have Questions?
+                </h2>
+                <p class="mb-6">
+                    We'd love to hear from you! Whether you have feedback,
+                    suggestions, or questions about our calculators, don't
+                    hesitate to reach out.
+                </p>
+                <a
+                    href="/contact"
+                    class="inline-block rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 px-8 py-3 font-semibold text-white shadow-lg transition hover:from-primary-600 hover:to-primary-700"
+                >
+                    Contact Us
+                </a>
+            </section>
+        </div>
+    </div>
+</BaseLayout>

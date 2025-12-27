@@ -1,0 +1,546 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title =
+	"TDEE Calculator - Calculate Your Daily Calorie Needs | SmartFitCalc";
+const description =
+	"Free TDEE calculator to determine your Total Daily Energy Expenditure. Get accurate BMR and calorie recommendations for weight loss, maintenance, or muscle gain.";
+---
+
+<BaseLayout title={title} description={description}>
+	<!-- Hero Section -->
+	<section class="mb-12 text-center">
+		<h1
+			class="mb-4 bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+		>
+			TDEE Calculator
+		</h1>
+		<p class="mx-auto max-w-2xl text-lg text-gray-600">
+			Calculate your <strong>Total Daily Energy Expenditure</strong> to understand
+			how many calories you burn each day. Use this to plan your diet for weight
+			loss, maintenance, or muscle gain.
+		</p>
+	</section>
+
+	<div class="grid gap-8 lg:grid-cols-2">
+		<!-- Calculator Form -->
+		<div
+			class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:p-8"
+		>
+			<h2 class="mb-6 text-2xl font-bold text-gray-800">
+				Enter Your Details
+			</h2>
+
+			<form id="tdee-form" class="space-y-6">
+				<!-- Gender -->
+				<div>
+					<label class="mb-3 block text-sm font-medium text-gray-700"
+						>Gender</label
+					>
+					<div class="flex gap-4">
+						<label class="flex cursor-pointer items-center gap-2">
+							<input
+								type="radio"
+								name="gender"
+								value="male"
+								checked
+								class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+							/>
+							<span class="text-gray-700">Male</span>
+						</label>
+						<label class="flex cursor-pointer items-center gap-2">
+							<input
+								type="radio"
+								name="gender"
+								value="female"
+								class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+							/>
+							<span class="text-gray-700">Female</span>
+						</label>
+					</div>
+				</div>
+
+				<!-- Age -->
+				<div>
+					<label
+						for="age"
+						class="mb-2 block text-sm font-medium text-gray-700"
+						>Age</label
+					>
+					<input
+						type="number"
+						id="age"
+						name="age"
+						min="15"
+						max="100"
+						placeholder="25"
+						required
+						class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<!-- Height -->
+				<div>
+					<label
+						for="height"
+						class="mb-2 block text-sm font-medium text-gray-700"
+						>Height (cm)</label
+					>
+					<input
+						type="number"
+						id="height"
+						name="height"
+						min="100"
+						max="250"
+						placeholder="175"
+						required
+						class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<!-- Weight -->
+				<div>
+					<label
+						for="weight"
+						class="mb-2 block text-sm font-medium text-gray-700"
+						>Weight (kg)</label
+					>
+					<input
+						type="number"
+						id="weight"
+						name="weight"
+						min="30"
+						max="300"
+						step="0.1"
+						placeholder="70"
+						required
+						class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+				</div>
+
+				<!-- Activity Level -->
+				<div>
+					<label
+						for="activity"
+						class="mb-2 block text-sm font-medium text-gray-700"
+						>Activity Level</label
+					>
+					<select
+						id="activity"
+						name="activity"
+						required
+						class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					>
+						<option value="1.2"
+							>Sedentary (little or no exercise)</option
+						>
+						<option value="1.375"
+							>Lightly Active (1-3 days/week)</option
+						>
+						<option value="1.55" selected
+							>Moderately Active (3-5 days/week)</option
+						>
+						<option value="1.725"
+							>Very Active (6-7 days/week)</option
+						>
+						<option value="1.9"
+							>Extra Active (very intense exercise)</option
+						>
+					</select>
+				</div>
+
+				<!-- Body Fat (Optional) -->
+				<div>
+					<label
+						for="bodyfat"
+						class="mb-2 block text-sm font-medium text-gray-700"
+					>
+						Body Fat % <span class="text-gray-400"
+							>(optional - for more accurate results)</span
+						>
+					</label>
+					<input
+						type="number"
+						id="bodyfat"
+						name="bodyfat"
+						min="3"
+						max="60"
+						step="0.1"
+						placeholder="20"
+						class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+					/>
+					<p class="mt-1 text-xs text-gray-500">
+						Don't know your body fat? Use our <a
+							href="/body-fat-calculator"
+							class="text-primary-600 hover:underline"
+							>Body Fat Calculator</a
+						>
+					</p>
+				</div>
+
+				<!-- Submit Button -->
+				<button
+					type="submit"
+					class="w-full rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-4 font-semibold text-white shadow-lg transition hover:from-primary-600 hover:to-primary-700 hover:shadow-xl active:scale-[0.98]"
+				>
+					Calculate TDEE
+				</button>
+			</form>
+		</div>
+
+		<!-- Results Section -->
+		<div id="results-section" class="hidden space-y-6">
+			<!-- BMR Card -->
+			<div
+				class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+			>
+				<div class="flex items-center gap-3">
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary-100"
+					>
+						<svg
+							class="h-6 w-6 text-secondary-600"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+						</svg>
+					</div>
+					<div>
+						<p class="text-sm text-gray-500">
+							Basal Metabolic Rate (BMR)
+						</p>
+						<p class="text-2xl font-bold text-gray-800">
+							<span id="bmr-value">0</span>
+							<span class="text-lg text-gray-500">kcal/day</span>
+						</p>
+					</div>
+				</div>
+				<p class="mt-3 text-sm text-gray-500">
+					Calories your body burns at complete rest
+				</p>
+			</div>
+
+			<!-- TDEE Card -->
+			<div
+				class="rounded-2xl border-2 border-primary-200 bg-gradient-to-br from-primary-50 to-primary-100 p-6 shadow-lg"
+			>
+				<div class="text-center">
+					<p
+						class="mb-2 text-sm font-medium uppercase tracking-wider text-primary-700"
+					>
+						Your Daily Calorie Needs
+					</p>
+					<p
+						class="text-5xl font-extrabold text-primary-600 md:text-6xl"
+					>
+						<span id="tdee-value">0</span>
+					</p>
+					<p class="mt-1 text-lg text-primary-700">kcal/day</p>
+				</div>
+			</div>
+
+			<!-- Calorie Goals -->
+			<div class="grid gap-4 sm:grid-cols-3">
+				<!-- Cutting -->
+				<div
+					class="rounded-xl border border-red-200 bg-red-50 p-4 text-center"
+				>
+					<div class="mb-2 flex items-center justify-center gap-2">
+						<span class="font-semibold text-red-700">Cutting</span>
+					</div>
+					<p
+						class="text-2xl font-bold text-red-600"
+						id="cutting-value"
+					>
+						0
+					</p>
+					<p class="text-sm text-red-500">kcal/day</p>
+					<p class="mt-2 text-xs text-gray-500">TDEE - 500 kcal</p>
+				</div>
+
+				<!-- Maintenance -->
+				<div
+					class="rounded-xl border border-gray-200 bg-gray-50 p-4 text-center"
+				>
+					<div class="mb-2 flex items-center justify-center gap-2">
+						<span class="font-semibold text-gray-700"
+							>Maintenance</span
+						>
+					</div>
+					<p
+						class="text-2xl font-bold text-gray-600"
+						id="maintenance-value"
+					>
+						0
+					</p>
+					<p class="text-sm text-gray-500">kcal/day</p>
+					<p class="mt-2 text-xs text-gray-500">= TDEE</p>
+				</div>
+
+				<!-- Bulking -->
+				<div
+					class="rounded-xl border border-green-200 bg-green-50 p-4 text-center"
+				>
+					<div class="mb-2 flex items-center justify-center gap-2">
+						<span class="font-semibold text-green-700">Bulking</span
+						>
+					</div>
+					<p
+						class="text-2xl font-bold text-green-600"
+						id="bulking-value"
+					>
+						0
+					</p>
+					<p class="text-sm text-green-500">kcal/day</p>
+					<p class="mt-2 text-xs text-gray-500">TDEE + 300 kcal</p>
+				</div>
+			</div>
+
+			<!-- Activity Comparison Chart -->
+			<div
+				class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+			>
+				<h3 class="mb-4 text-lg font-semibold text-gray-800">
+					TDEE by Activity Level
+				</h3>
+				<canvas id="activity-chart" height="200"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<!-- Info Section -->
+	<section class="mt-16 grid gap-8 md:grid-cols-2">
+		<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+			<h2 class="mb-4 text-xl font-bold text-gray-800">What is TDEE?</h2>
+			<p class="text-gray-600">
+				<strong>Total Daily Energy Expenditure (TDEE)</strong> is the total
+				number of calories you burn each day. It includes your Basal Metabolic
+				Rate (BMR) plus all physical activities. Understanding your TDEE is
+				essential for managing your weight effectively.
+			</p>
+		</div>
+
+		<div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+			<h2 class="mb-4 text-xl font-bold text-gray-800">
+				How It's Calculated
+			</h2>
+			<p class="text-gray-600">
+				We use the <strong>Mifflin-St Jeor equation</strong> (most accurate
+				for most people) to calculate your BMR. If you provide your body fat
+				percentage, we use the <strong>Katch-McArdle formula</strong> for
+				even more precise results.
+			</p>
+		</div>
+	</section>
+
+	<!-- Related Calculators -->
+	<section class="mt-12">
+		<h2 class="mb-6 text-center text-2xl font-bold text-gray-800">
+			Related Calculators
+		</h2>
+		<div class="grid gap-6 md:grid-cols-2">
+			<a
+				href="/macro-calculator"
+				class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+			>
+				<div class="flex items-start gap-4">
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-100 transition group-hover:bg-accent-200"
+					>
+						<svg
+							class="h-6 w-6 text-accent-600"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+							></path>
+						</svg>
+					</div>
+					<div>
+						<h3
+							class="font-semibold text-gray-800 group-hover:text-primary-600"
+						>
+							Macro Calculator
+						</h3>
+						<p class="text-sm text-gray-500">
+							Calculate your optimal carbs, protein, and fat
+							intake
+						</p>
+					</div>
+				</div>
+			</a>
+
+			<a
+				href="/body-fat-calculator"
+				class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+			>
+				<div class="flex items-start gap-4">
+					<div
+						class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary-100 transition group-hover:bg-secondary-200"
+					>
+						<svg
+							class="h-6 w-6 text-secondary-600"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+							></path>
+						</svg>
+					</div>
+					<div>
+						<h3
+							class="font-semibold text-gray-800 group-hover:text-primary-600"
+						>
+							Body Fat Calculator
+						</h3>
+						<p class="text-sm text-gray-500">
+							Estimate your body fat percentage using the US Navy
+							method
+						</p>
+					</div>
+				</div>
+			</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	// TDEE Calculator Logic
+	const form = document.getElementById("tdee-form") as HTMLFormElement;
+	const resultsSection = document.getElementById("results-section");
+
+	// Activity level multipliers
+	const activityLevels = [
+		{ value: 1.2, label: "Sedentary" },
+		{ value: 1.375, label: "Light" },
+		{ value: 1.55, label: "Moderate" },
+		{ value: 1.725, label: "Very Active" },
+		{ value: 1.9, label: "Extra" },
+	];
+
+	let activityChart: any = null;
+
+	form?.addEventListener("submit", (e) => {
+		e.preventDefault();
+
+		const formData = new FormData(form);
+		const gender = formData.get("gender") as string;
+		const age = parseFloat(formData.get("age") as string);
+		const height = parseFloat(formData.get("height") as string);
+		const weight = parseFloat(formData.get("weight") as string);
+		const activity = parseFloat(formData.get("activity") as string);
+		const bodyfat = formData.get("bodyfat")
+			? parseFloat(formData.get("bodyfat") as string)
+			: null;
+
+		// Calculate BMR
+		let bmr: number;
+
+		if (bodyfat && bodyfat > 0) {
+			// Katch-McArdle Formula (requires body fat %)
+			const leanMass = weight * (1 - bodyfat / 100);
+			bmr = 370 + 21.6 * leanMass;
+		} else {
+			// Mifflin-St Jeor Formula
+			if (gender === "male") {
+				bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+			} else {
+				bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+			}
+		}
+
+		// Calculate TDEE
+		const tdee = Math.round(bmr * activity);
+		bmr = Math.round(bmr);
+
+		// Update DOM
+		document.getElementById("bmr-value")!.textContent = bmr.toString();
+		document.getElementById("tdee-value")!.textContent = tdee.toString();
+		document.getElementById("cutting-value")!.textContent = (
+			tdee - 500
+		).toString();
+		document.getElementById("maintenance-value")!.textContent =
+			tdee.toString();
+		document.getElementById("bulking-value")!.textContent = (
+			tdee + 300
+		).toString();
+
+		// Show results
+		resultsSection?.classList.remove("hidden");
+
+		// Create activity comparison chart
+		const tdeeByActivity = activityLevels.map((level) =>
+			Math.round(bmr * level.value),
+		);
+
+		const ctx = document.getElementById(
+			"activity-chart",
+		) as HTMLCanvasElement;
+
+		if (activityChart) {
+			activityChart.destroy();
+		}
+
+		activityChart = new (window as any).Chart(ctx, {
+			type: "bar",
+			data: {
+				labels: activityLevels.map((l) => l.label),
+				datasets: [
+					{
+						label: "TDEE (kcal)",
+						data: tdeeByActivity,
+						backgroundColor: [
+							"rgba(107, 114, 128, 0.7)",
+							"rgba(59, 130, 246, 0.7)",
+							"rgba(16, 185, 129, 0.7)",
+							"rgba(245, 158, 11, 0.7)",
+							"rgba(239, 68, 68, 0.7)",
+						],
+						borderColor: [
+							"rgb(107, 114, 128)",
+							"rgb(59, 130, 246)",
+							"rgb(16, 185, 129)",
+							"rgb(245, 158, 11)",
+							"rgb(239, 68, 68)",
+						],
+						borderWidth: 2,
+						borderRadius: 8,
+					},
+				],
+			},
+			options: {
+				responsive: true,
+				plugins: {
+					legend: {
+						display: false,
+					},
+				},
+				scales: {
+					y: {
+						beginAtZero: false,
+						min: Math.min(...tdeeByActivity) - 200,
+					},
+				},
+			},
+		});
+
+		// Scroll to results
+		resultsSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+	});
+</script>

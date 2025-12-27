@@ -1,0 +1,532 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title =
+    "Ideal Weight Calculator - Find Your Healthy Weight | SmartFitCalc";
+const description =
+    "Free ideal weight calculator using multiple scientific formulas. Calculate your ideal body weight based on height and gender using Devine, Robinson, Miller, and Hamwi formulas.";
+---
+
+<BaseLayout title={title} description={description}>
+    <!-- Hero Section -->
+    <section class="mb-12 text-center">
+        <h1
+            class="mb-4 bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+        >
+            Ideal Weight Calculator
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            Calculate your <strong>ideal body weight</strong> using multiple scientific
+            formulas. Get a healthy weight range based on your height and gender.
+        </p>
+    </section>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+        <!-- Calculator Form -->
+        <div
+            class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:p-8"
+        >
+            <h2 class="mb-6 text-2xl font-bold text-gray-800">
+                Enter Your Details
+            </h2>
+
+            <form id="ideal-weight-form" class="space-y-6">
+                <!-- Gender -->
+                <div>
+                    <label class="mb-3 block text-sm font-medium text-gray-700"
+                        >Gender</label
+                    >
+                    <div class="flex gap-4">
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="male"
+                                checked
+                                class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                            />
+                            <span class="text-gray-700">Male</span>
+                        </label>
+                        <label class="flex cursor-pointer items-center gap-2">
+                            <input
+                                type="radio"
+                                name="gender"
+                                value="female"
+                                class="h-4 w-4 text-primary-600 focus:ring-primary-500"
+                            />
+                            <span class="text-gray-700">Female</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Height -->
+                <div>
+                    <label
+                        for="height"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Height (cm)</label
+                    >
+                    <input
+                        type="number"
+                        id="height"
+                        name="height"
+                        min="140"
+                        max="220"
+                        placeholder="175"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    />
+                </div>
+
+                <!-- Frame Size (Optional) -->
+                <div>
+                    <label
+                        for="frame"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Frame Size <span class="text-gray-400">(optional)</span
+                        ></label
+                    >
+                    <select
+                        id="frame"
+                        name="frame"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+                    >
+                        <option value="medium">Medium Frame</option>
+                        <option value="small">Small Frame (-10%)</option>
+                        <option value="large">Large Frame (+10%)</option>
+                    </select>
+                    <p class="mt-1 text-xs text-gray-500">
+                        Measure your wrist circumference to determine frame size
+                    </p>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    class="w-full rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-4 font-semibold text-white shadow-lg transition hover:from-purple-600 hover:to-pink-600 hover:shadow-xl active:scale-[0.98]"
+                >
+                    Calculate Ideal Weight
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden space-y-6">
+            <!-- Ideal Weight Range Card -->
+            <div
+                class="overflow-hidden rounded-2xl border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg"
+            >
+                <div class="p-6 text-center">
+                    <p
+                        class="mb-2 text-sm font-medium uppercase tracking-wider text-purple-700"
+                    >
+                        Your Ideal Weight Range
+                    </p>
+                    <p
+                        class="text-4xl font-extrabold text-purple-600 md:text-5xl"
+                    >
+                        <span id="weight-min">0</span> - <span id="weight-max"
+                            >0</span
+                        >
+                        <span class="text-xl">kg</span>
+                    </p>
+                </div>
+                <div
+                    class="border-t border-purple-200 bg-white/50 p-4 text-center"
+                >
+                    <p class="text-sm text-gray-600">
+                        Average: <span
+                            class="font-bold text-purple-600"
+                            id="weight-avg">0</span
+                        > kg
+                    </p>
+                </div>
+            </div>
+
+            <!-- Formula Breakdown -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+            >
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">
+                    Results by Formula
+                </h3>
+                <div class="space-y-3">
+                    <div
+                        class="flex items-center justify-between rounded-lg bg-purple-50 p-4"
+                    >
+                        <div>
+                            <p class="font-medium text-purple-700">
+                                Devine Formula
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                Most commonly used in clinical settings
+                            </p>
+                        </div>
+                        <span
+                            class="text-xl font-bold text-purple-600"
+                            id="devine">0 kg</span
+                        >
+                    </div>
+                    <div
+                        class="flex items-center justify-between rounded-lg bg-pink-50 p-4"
+                    >
+                        <div>
+                            <p class="font-medium text-pink-700">
+                                Robinson Formula
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                Modified from Devine (1983)
+                            </p>
+                        </div>
+                        <span
+                            class="text-xl font-bold text-pink-600"
+                            id="robinson">0 kg</span
+                        >
+                    </div>
+                    <div
+                        class="flex items-center justify-between rounded-lg bg-indigo-50 p-4"
+                    >
+                        <div>
+                            <p class="font-medium text-indigo-700">
+                                Miller Formula
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                Modified from Devine (1983)
+                            </p>
+                        </div>
+                        <span
+                            class="text-xl font-bold text-indigo-600"
+                            id="miller">0 kg</span
+                        >
+                    </div>
+                    <div
+                        class="flex items-center justify-between rounded-lg bg-violet-50 p-4"
+                    >
+                        <div>
+                            <p class="font-medium text-violet-700">
+                                Hamwi Formula
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                Used in nutrition textbooks
+                            </p>
+                        </div>
+                        <span
+                            class="text-xl font-bold text-violet-600"
+                            id="hamwi">0 kg</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- BMI-Based Range -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+            >
+                <h3 class="mb-4 text-lg font-semibold text-gray-800">
+                    Healthy BMI Weight Range
+                </h3>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-500">BMI 18.5 - 25</p>
+                        <p class="text-xs text-gray-400">
+                            World Health Organization standard
+                        </p>
+                    </div>
+                    <span class="text-xl font-bold text-gray-700" id="bmi-range"
+                        >0 - 0 kg</span
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Section -->
+    <section class="mt-16 grid gap-8 md:grid-cols-2">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                About Ideal Weight Formulas
+            </h2>
+            <p class="text-gray-600 mb-4">
+                There's no single "perfect" weight. These formulas provide
+                estimates based on height and gender, developed from population
+                studies. Your actual ideal weight depends on many factors
+                including:
+            </p>
+            <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                <li>Muscle mass and body composition</li>
+                <li>Bone density and frame size</li>
+                <li>Age and overall health</li>
+                <li>Personal fitness goals</li>
+            </ul>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                The Four Formulas Explained
+            </h2>
+            <div class="space-y-3 text-sm text-gray-600">
+                <div>
+                    <p class="font-medium text-gray-800">Devine (1974)</p>
+                    <p>Men: 50 + 2.3kg per inch over 5ft</p>
+                    <p>Women: 45.5 + 2.3kg per inch over 5ft</p>
+                </div>
+                <div>
+                    <p class="font-medium text-gray-800">Robinson (1983)</p>
+                    <p>Men: 52 + 1.9kg per inch over 5ft</p>
+                    <p>Women: 49 + 1.7kg per inch over 5ft</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frame Size Guide -->
+    <section class="mt-12">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                How to Determine Your Frame Size
+            </h2>
+            <p class="text-gray-600 mb-4">
+                Wrap your thumb and middle finger around your wrist. If they:
+            </p>
+            <div class="grid gap-4 md:grid-cols-3">
+                <div class="rounded-lg bg-blue-50 p-4 text-center">
+                    <p class="font-semibold text-blue-700">Overlap</p>
+                    <p class="text-sm text-gray-600">Small Frame</p>
+                </div>
+                <div class="rounded-lg bg-green-50 p-4 text-center">
+                    <p class="font-semibold text-green-700">Just Touch</p>
+                    <p class="text-sm text-gray-600">Medium Frame</p>
+                </div>
+                <div class="rounded-lg bg-orange-50 p-4 text-center">
+                    <p class="font-semibold text-orange-700">Don't Touch</p>
+                    <p class="text-sm text-gray-600">Large Frame</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Calculators -->
+    <section class="mt-12">
+        <h2 class="mb-6 text-center text-2xl font-bold text-gray-800">
+            Related Calculators
+        </h2>
+        <div class="grid gap-6 md:grid-cols-3">
+            <a
+                href="/bmi-calculator"
+                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 transition group-hover:bg-green-200"
+                    >
+                        <svg
+                            class="h-6 w-6 text-green-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-gray-800 group-hover:text-primary-600"
+                        >
+                            BMI Calculator
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Check your Body Mass Index
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="/body-fat-calculator"
+                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary-100 transition group-hover:bg-secondary-200"
+                    >
+                        <svg
+                            class="h-6 w-6 text-secondary-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-gray-800 group-hover:text-primary-600"
+                        >
+                            Body Fat Calculator
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Estimate body fat percentage
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <a
+                href="/"
+                class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+            >
+                <div class="flex items-start gap-4">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 transition group-hover:bg-primary-200"
+                    >
+                        <svg
+                            class="h-6 w-6 text-primary-600"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-gray-800 group-hover:text-primary-600"
+                        >
+                            TDEE Calculator
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Calculate daily calorie needs
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+</BaseLayout>
+
+<script>
+    // Ideal Weight Calculator Logic
+    const form = document.getElementById(
+        "ideal-weight-form",
+    ) as HTMLFormElement;
+    const resultsSection = document.getElementById("results-section");
+
+    // Convert cm to inches over 5 feet
+    const cmToInchesOver5Ft = (cm: number): number => {
+        const inches = cm / 2.54;
+        const inchesOver5Ft = inches - 60; // 5 feet = 60 inches
+        return Math.max(0, inchesOver5Ft);
+    };
+
+    // Ideal weight formulas (return kg)
+    const formulas = {
+        devine: (gender: string, heightCm: number): number => {
+            const inchesOver = cmToInchesOver5Ft(heightCm);
+            if (gender === "male") {
+                return 50 + 2.3 * inchesOver;
+            } else {
+                return 45.5 + 2.3 * inchesOver;
+            }
+        },
+        robinson: (gender: string, heightCm: number): number => {
+            const inchesOver = cmToInchesOver5Ft(heightCm);
+            if (gender === "male") {
+                return 52 + 1.9 * inchesOver;
+            } else {
+                return 49 + 1.7 * inchesOver;
+            }
+        },
+        miller: (gender: string, heightCm: number): number => {
+            const inchesOver = cmToInchesOver5Ft(heightCm);
+            if (gender === "male") {
+                return 56.2 + 1.41 * inchesOver;
+            } else {
+                return 53.1 + 1.36 * inchesOver;
+            }
+        },
+        hamwi: (gender: string, heightCm: number): number => {
+            const inchesOver = cmToInchesOver5Ft(heightCm);
+            if (gender === "male") {
+                return 48 + 2.7 * inchesOver;
+            } else {
+                return 45.5 + 2.2 * inchesOver;
+            }
+        },
+    };
+
+    form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const gender = formData.get("gender") as string;
+        const height = parseFloat(formData.get("height") as string);
+        const frame = formData.get("frame") as string;
+
+        // Calculate ideal weight using all formulas
+        const results = {
+            devine: formulas.devine(gender, height),
+            robinson: formulas.robinson(gender, height),
+            miller: formulas.miller(gender, height),
+            hamwi: formulas.hamwi(gender, height),
+        };
+
+        // Apply frame size adjustment
+        const frameMultiplier =
+            frame === "small" ? 0.9 : frame === "large" ? 1.1 : 1;
+
+        Object.keys(results).forEach((key) => {
+            results[key as keyof typeof results] *= frameMultiplier;
+        });
+
+        // Calculate range
+        const values = Object.values(results);
+        const minWeight = Math.round(Math.min(...values) * 10) / 10;
+        const maxWeight = Math.round(Math.max(...values) * 10) / 10;
+        const avgWeight = Math.round(((minWeight + maxWeight) / 2) * 10) / 10;
+
+        // Calculate BMI-based healthy weight range
+        const heightM = height / 100;
+        const bmiMin = Math.round(18.5 * heightM * heightM * 10) / 10;
+        const bmiMax = Math.round(25 * heightM * heightM * 10) / 10;
+
+        // Update DOM
+        document.getElementById("weight-min")!.textContent =
+            minWeight.toString();
+        document.getElementById("weight-max")!.textContent =
+            maxWeight.toString();
+        document.getElementById("weight-avg")!.textContent =
+            avgWeight.toString();
+
+        document.getElementById("devine")!.textContent =
+            `${Math.round(results.devine * 10) / 10} kg`;
+        document.getElementById("robinson")!.textContent =
+            `${Math.round(results.robinson * 10) / 10} kg`;
+        document.getElementById("miller")!.textContent =
+            `${Math.round(results.miller * 10) / 10} kg`;
+        document.getElementById("hamwi")!.textContent =
+            `${Math.round(results.hamwi * 10) / 10} kg`;
+
+        document.getElementById("bmi-range")!.textContent =
+            `${bmiMin} - ${bmiMax} kg`;
+
+        // Show results
+        resultsSection?.classList.remove("hidden");
+
+        // Scroll to results
+        resultsSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+</script>

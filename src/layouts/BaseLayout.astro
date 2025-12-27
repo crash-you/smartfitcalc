@@ -1,0 +1,387 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+}
+
+const { title, description, canonicalUrl } = Astro.props;
+const siteUrl = "https://smartfitcalc.com";
+const fullCanonicalUrl = canonicalUrl || Astro.url.href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={fullCanonicalUrl} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={fullCanonicalUrl} />
+    <meta property="og:site_name" content="SmartFitCalc" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title}</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SmartFitCalc",
+        "url": "https://smartfitcalc.com",
+        "logo": "https://smartfitcalc.com/favicon.svg",
+        "description": "Free, accurate fitness calculators to help you achieve your health and fitness goals.",
+        "sameAs": []
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "SmartFitCalc",
+        "url": "https://smartfitcalc.com",
+        "description": "Free online fitness calculators including TDEE, BMI, Macro, Body Fat, and more.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://smartfitcalc.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 font-sans text-gray-800 antialiased"
+  >
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md"
+    >
+      <nav
+        class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4"
+      >
+        <a
+          href="/"
+          class="flex items-center gap-2 text-xl font-bold text-primary-600 transition hover:text-primary-700"
+        >
+          <svg
+            class="h-8 w-8"
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="16"
+              cy="16"
+              r="14"
+              stroke="currentColor"
+              stroke-width="2.5"
+              fill="none"></circle>
+            <path
+              d="M10 16l4 4 8-8"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+          SmartFitCalc
+        </a>
+
+        <div class="hidden items-center gap-6 md:flex">
+          <a
+            href="/"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >TDEE Calculator</a
+          >
+          <a
+            href="/macro-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Macro Calculator</a
+          >
+          <a
+            href="/body-fat-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Body Fat</a
+          >
+          <a
+            href="/bmi-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >BMI</a
+          >
+          <a
+            href="/guides"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Guides</a
+          >
+          <a
+            href="/blog"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Blog</a
+          >
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 md:hidden"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden border-t border-gray-200 bg-white px-4 py-4 md:hidden"
+      >
+        <div class="flex flex-col gap-4">
+          <a
+            href="/"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >TDEE Calculator</a
+          >
+          <a
+            href="/macro-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Macro Calculator</a
+          >
+          <a
+            href="/body-fat-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Body Fat Calculator</a
+          >
+          <a
+            href="/bmi-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >BMI Calculator</a
+          >
+          <a
+            href="/one-rep-max-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >1RM Calculator</a
+          >
+          <a
+            href="/ideal-weight-calculator"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Ideal Weight</a
+          >
+          <div class="border-t border-gray-200 pt-4 mt-2">
+            <a
+              href="/guides"
+              class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+              >Guides</a
+            >
+          </div>
+          <a
+            href="/blog"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >Blog</a
+          >
+          <a
+            href="/faq"
+            class="text-sm font-medium text-gray-600 transition hover:text-primary-600"
+            >FAQ</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="mx-auto max-w-6xl px-4 py-8">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 bg-white">
+      <div class="mx-auto max-w-6xl px-4 py-8">
+        <div class="grid gap-8 md:grid-cols-3">
+          <div>
+            <h3 class="mb-4 text-lg font-semibold text-gray-800">
+              SmartFitCalc
+            </h3>
+            <p class="text-sm text-gray-600">
+              Free, accurate fitness calculators to help you achieve your health
+              goals. Calculate your TDEE, macros, and body fat percentage.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="mb-4 text-lg font-semibold text-gray-800">
+              Calculators
+            </h3>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li>
+                <a href="/" class="transition hover:text-primary-600"
+                  >TDEE Calculator</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/macro-calculator"
+                  class="transition hover:text-primary-600">Macro Calculator</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/body-fat-calculator"
+                  class="transition hover:text-primary-600"
+                  >Body Fat Calculator</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/bmi-calculator"
+                  class="transition hover:text-primary-600">BMI Calculator</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/one-rep-max-calculator"
+                  class="transition hover:text-primary-600">1RM Calculator</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/ideal-weight-calculator"
+                  class="transition hover:text-primary-600">Ideal Weight</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="mb-4 text-lg font-semibold text-gray-800">Resources</h3>
+            <ul class="space-y-2 text-sm text-gray-600">
+              <li>
+                <a href="/guides" class="transition hover:text-primary-600"
+                  >Guides</a
+                >
+              </li>
+              <li>
+                <a href="/blog" class="transition hover:text-primary-600"
+                  >Blog</a
+                >
+              </li>
+              <li>
+                <a href="/faq" class="transition hover:text-primary-600">FAQ</a>
+              </li>
+              <li>
+                <a href="/about" class="transition hover:text-primary-600"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a href="/contact" class="transition hover:text-primary-600"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/privacy-policy"
+                  class="transition hover:text-primary-600">Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a href="/terms" class="transition hover:text-primary-600"
+                  >Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Medical Disclaimer -->
+        <div class="mt-8 border-t border-gray-200 pt-6">
+          <div class="rounded-lg bg-amber-50 border border-amber-200 p-4 mb-6">
+            <div class="flex items-start gap-3">
+              <svg
+                class="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                ></path>
+              </svg>
+              <div>
+                <p class="text-sm font-medium text-amber-800">
+                  Medical Disclaimer
+                </p>
+                <p class="mt-1 text-xs text-amber-700">
+                  The information provided by SmartFitCalc is for educational
+                  and informational purposes only and is not intended as medical
+                  advice. The calculators and content on this website should not
+                  be used as a substitute for professional medical advice,
+                  diagnosis, or treatment. Always consult with a qualified
+                  healthcare provider before starting any diet, exercise
+                  program, or making changes to your health routine.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center text-sm text-gray-500">
+            <p>
+              &copy; {new Date().getFullYear()} SmartFitCalc. All rights reserved.
+            </p>
+            <p class="mt-2">
+              Results are estimates based on scientific formulas and may vary
+              based on individual factors.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+      const menuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuBtn?.addEventListener("click", () => {
+        mobileMenu?.classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>

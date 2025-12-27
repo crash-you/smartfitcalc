@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Fitness Guides - Learn to Use Our Calculators | SmartFitCalc";
+const description =
+    "Comprehensive guides to help you understand and use our fitness calculators effectively. Learn about TDEE, macros, body fat, and more.";
+
+const guides = [
+    {
+        title: "Complete TDEE Guide",
+        description:
+            "Learn everything about Total Daily Energy Expenditure - what it is, how to calculate it, and how to use it for your fitness goals.",
+        href: "/guides/tdee-guide",
+        color: "primary",
+        icon: "M13 10V3L4 14h7v7l9-11h-7z",
+    },
+    {
+        title: "Macro Calculator Guide",
+        description:
+            "Understand macronutrients and how to calculate your optimal protein, carbs, and fat intake for different goals.",
+        href: "/guides/macro-guide",
+        color: "accent",
+        icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+    },
+    {
+        title: "Body Fat Calculator Guide",
+        description:
+            "Master the US Navy method for estimating body fat percentage and understand what your results mean.",
+        href: "/guides/body-fat-guide",
+        color: "secondary",
+        icon: "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4",
+    },
+];
+---
+
+<BaseLayout title={title} description={description}>
+    <!-- Hero Section -->
+    <section class="mb-12 text-center">
+        <h1
+            class="mb-4 bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+        >
+            Fitness Guides
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            In-depth guides to help you understand the science behind our
+            calculators and make the most of your fitness journey.
+        </p>
+    </section>
+
+    <!-- Guides Grid -->
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {
+            guides.map((guide) => (
+                <a
+                    href={guide.href}
+                    class="group rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition hover:border-primary-300 hover:shadow-xl"
+                >
+                    <div
+                        class={`flex h-14 w-14 items-center justify-center rounded-full bg-${guide.color}-100 mb-4 transition group-hover:bg-${guide.color}-200`}
+                    >
+                        <svg
+                            class={`h-7 w-7 text-${guide.color}-600`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d={guide.icon}
+                            />
+                        </svg>
+                    </div>
+                    <h2 class="mb-2 text-xl font-bold text-gray-800 group-hover:text-primary-600">
+                        {guide.title}
+                    </h2>
+                    <p class="text-gray-600">{guide.description}</p>
+                    <div class="mt-4 flex items-center text-primary-600 font-medium">
+                        Read Guide
+                        <svg
+                            class="ml-2 h-4 w-4 transition group-hover:translate-x-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 5l7 7-7 7"
+                            />
+                        </svg>
+                    </div>
+                </a>
+            ))
+        }
+    </div>
+
+    <!-- Why Read Our Guides -->
+    <section class="mt-16">
+        <h2 class="mb-8 text-center text-2xl font-bold text-gray-800">
+            Why Read Our Guides?
+        </h2>
+        <div class="grid gap-6 md:grid-cols-3">
+            <div
+                class="rounded-xl border border-gray-200 bg-white p-6 shadow-md text-center"
+            >
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-green-100 mx-auto mb-4"
+                >
+                    <svg
+                        class="h-6 w-6 text-green-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 font-semibold text-gray-800">Science-Based</h3>
+                <p class="text-sm text-gray-600">
+                    All our guides are based on peer-reviewed research and
+                    established scientific formulas.
+                </p>
+            </div>
+            <div
+                class="rounded-xl border border-gray-200 bg-white p-6 shadow-md text-center"
+            >
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 mx-auto mb-4"
+                >
+                    <svg
+                        class="h-6 w-6 text-blue-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                        ></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 font-semibold text-gray-800">
+                    Easy to Understand
+                </h3>
+                <p class="text-sm text-gray-600">
+                    Complex concepts explained in simple terms with practical
+                    examples.
+                </p>
+            </div>
+            <div
+                class="rounded-xl border border-gray-200 bg-white p-6 shadow-md text-center"
+            >
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 mx-auto mb-4"
+                >
+                    <svg
+                        class="h-6 w-6 text-purple-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 font-semibold text-gray-800">
+                    Actionable Advice
+                </h3>
+                <p class="text-sm text-gray-600">
+                    Practical tips you can apply immediately to reach your
+                    fitness goals.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section
+        class="mt-16 rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 p-8 text-center"
+    >
+        <h2 class="mb-4 text-2xl font-bold text-gray-800">
+            Ready to Calculate?
+        </h2>
+        <p class="mb-6 text-gray-600">
+            Put your knowledge into practice with our free fitness calculators.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a
+                href="/"
+                class="rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:from-primary-600 hover:to-primary-700"
+            >
+                TDEE Calculator
+            </a>
+            <a
+                href="/macro-calculator"
+                class="rounded-xl bg-white px-6 py-3 font-semibold text-gray-800 shadow-lg transition hover:bg-gray-50"
+            >
+                Macro Calculator
+            </a>
+            <a
+                href="/body-fat-calculator"
+                class="rounded-xl bg-white px-6 py-3 font-semibold text-gray-800 shadow-lg transition hover:bg-gray-50"
+            >
+                Body Fat Calculator
+            </a>
+        </div>
+    </section>
+</BaseLayout>

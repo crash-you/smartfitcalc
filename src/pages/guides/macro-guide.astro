@@ -1,0 +1,267 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title =
+    "Macro Calculator Guide - Understanding Macronutrients | SmartFitCalc";
+const description =
+    "Complete guide to macronutrients. Learn how to calculate protein, carbs, and fat for weight loss, muscle gain, or maintenance.";
+---
+
+<BaseLayout title={title} description={description}>
+    <article class="mx-auto max-w-4xl">
+        <header class="mb-12 text-center">
+            <div class="mb-4">
+                <a
+                    href="/guides"
+                    class="text-sm text-primary-600 hover:underline"
+                    >← Back to Guides</a
+                >
+            </div>
+            <h1
+                class="mb-4 bg-gradient-to-r from-accent-500 to-primary-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+            >
+                Macro Calculator Guide
+            </h1>
+            <p class="text-lg text-gray-600">
+                Master the art of counting macros for optimal results
+            </p>
+        </header>
+
+        <div class="prose prose-lg max-w-none">
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    What Are Macronutrients?
+                </h2>
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+                >
+                    <p class="text-gray-600 mb-4">
+                        <strong>Macronutrients</strong> are the three main nutrients
+                        that provide calories: protein, carbohydrates, and fats. Each
+                        serves unique functions in your body.
+                    </p>
+                    <div class="grid gap-4 md:grid-cols-3 mt-6">
+                        <div
+                            class="rounded-xl bg-red-50 p-4 text-center border border-red-100"
+                        >
+                            <p class="text-3xl font-bold text-red-600">4</p>
+                            <p class="text-red-700 text-sm">cal/gram Protein</p>
+                        </div>
+                        <div
+                            class="rounded-xl bg-amber-50 p-4 text-center border border-amber-100"
+                        >
+                            <p class="text-3xl font-bold text-amber-600">4</p>
+                            <p class="text-amber-700 text-sm">cal/gram Carbs</p>
+                        </div>
+                        <div
+                            class="rounded-xl bg-blue-50 p-4 text-center border border-blue-100"
+                        >
+                            <p class="text-3xl font-bold text-blue-600">9</p>
+                            <p class="text-blue-700 text-sm">cal/gram Fat</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    The Three Macros Explained
+                </h2>
+                <div class="space-y-4">
+                    <div
+                        class="rounded-xl border border-red-200 bg-white p-5 shadow-md"
+                    >
+                        <h3 class="font-bold text-red-600 mb-2">Protein</h3>
+                        <p class="text-gray-600 text-sm">
+                            Essential for muscle repair, growth, and satiety.
+                            Aim for 1.6-2.2g/kg body weight for active
+                            individuals.
+                        </p>
+                    </div>
+                    <div
+                        class="rounded-xl border border-amber-200 bg-white p-5 shadow-md"
+                    >
+                        <h3 class="font-bold text-amber-600 mb-2">
+                            Carbohydrates
+                        </h3>
+                        <p class="text-gray-600 text-sm">
+                            Primary fuel for exercise and brain function. Choose
+                            complex carbs like oats, rice, and vegetables.
+                        </p>
+                    </div>
+                    <div
+                        class="rounded-xl border border-blue-200 bg-white p-5 shadow-md"
+                    >
+                        <h3 class="font-bold text-blue-600 mb-2">Fats</h3>
+                        <p class="text-gray-600 text-sm">
+                            Essential for hormones, vitamin absorption, and
+                            brain health. Include healthy sources like olive oil
+                            and avocados.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Macro Ratios for Different Goals
+                </h2>
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+                >
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="rounded-xl bg-gray-50 p-4 border">
+                            <h4 class="font-bold text-gray-800">
+                                Balanced (40/30/30)
+                            </h4>
+                            <p class="text-gray-600 text-sm">
+                                Best for general health and beginners
+                            </p>
+                        </div>
+                        <div
+                            class="rounded-xl bg-amber-50 p-4 border border-amber-200"
+                        >
+                            <h4 class="font-bold text-amber-800">
+                                Low Fat (50/30/20)
+                            </h4>
+                            <p class="text-amber-700 text-sm">
+                                Good for high-volume eating
+                            </p>
+                        </div>
+                        <div
+                            class="rounded-xl bg-blue-50 p-4 border border-blue-200"
+                        >
+                            <h4 class="font-bold text-blue-800">
+                                Keto (10/40/50)
+                            </h4>
+                            <p class="text-blue-700 text-sm">
+                                Very low carb approach
+                            </p>
+                        </div>
+                        <div
+                            class="rounded-xl bg-red-50 p-4 border border-red-200"
+                        >
+                            <h4 class="font-bold text-red-800">
+                                High Protein (25/45/30)
+                            </h4>
+                            <p class="text-red-700 text-sm">
+                                Best for muscle building
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    How to Calculate Your Macros
+                </h2>
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+                >
+                    <ol class="list-decimal pl-6 space-y-3 text-gray-600">
+                        <li>
+                            <strong>Calculate TDEE</strong> - Find your daily calorie
+                            needs
+                        </li>
+                        <li>
+                            <strong>Adjust for goal</strong> - Subtract 500 for fat
+                            loss, add 300 for muscle
+                        </li>
+                        <li>
+                            <strong>Set protein</strong> - 1.6-2.2g per kg of body
+                            weight
+                        </li>
+                        <li>
+                            <strong>Set fats</strong> - 20-35% of total calories
+                        </li>
+                        <li>
+                            <strong>Fill with carbs</strong> - Remaining calories
+                            divided by 4
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Best Food Sources
+                </h2>
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+                >
+                    <div class="grid gap-6 md:grid-cols-3">
+                        <div>
+                            <h4 class="font-bold text-red-600 mb-2">Protein</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Chicken breast</li>
+                                <li>• Fish & seafood</li>
+                                <li>• Eggs</li>
+                                <li>• Greek yogurt</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-amber-600 mb-2">Carbs</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Oatmeal</li>
+                                <li>• Rice</li>
+                                <li>• Sweet potatoes</li>
+                                <li>• Fruits</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-600 mb-2">Fats</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Olive oil</li>
+                                <li>• Avocados</li>
+                                <li>• Nuts</li>
+                                <li>• Salmon</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    Tracking Tips
+                </h2>
+                <div
+                    class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+                >
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex gap-3">
+                            <span class="text-green-500">✓</span> Use a food scale
+                            for accuracy
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-green-500">✓</span> Pre-log meals in
+                            advance
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-green-500">✓</span> Prioritize hitting
+                            protein first
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-green-500">✓</span> Allow ±5-10g flexibility
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <section
+            class="rounded-2xl bg-gradient-to-br from-accent-50 to-primary-50 p-8 text-center"
+        >
+            <h2 class="mb-4 text-2xl font-bold text-gray-800">
+                Calculate Your Macros
+            </h2>
+            <a
+                href="/macro-calculator"
+                class="inline-block rounded-xl bg-gradient-to-r from-accent-500 to-primary-500 px-8 py-4 font-semibold text-white shadow-lg"
+            >
+                Use Macro Calculator
+            </a>
+        </section>
+    </article>
+</BaseLayout>
