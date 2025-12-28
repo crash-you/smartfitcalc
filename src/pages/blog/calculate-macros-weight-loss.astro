@@ -4,9 +4,40 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const title = "How to Calculate Your Macros for Weight Loss | SmartFitCalc";
 const description =
     "Step-by-step guide to calculating macronutrients for effective weight loss while preserving muscle mass.";
+
+const articleStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "How to Calculate Your Macros for Weight Loss",
+    description: description,
+    datePublished: "2024-12-01",
+    dateModified: "2025-12-28",
+    author: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+    publisher: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+        logo: {
+            "@type": "ImageObject",
+            url: "https://smartfitcalc.com/favicon.svg",
+        },
+    },
+    mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": "https://smartfitcalc.com/blog/calculate-macros-weight-loss",
+    },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(articleStructuredData)}
+    />
     <article class="mx-auto max-w-3xl">
         <header class="mb-10 text-center">
             <a href="/blog" class="text-sm text-primary-600 hover:underline"

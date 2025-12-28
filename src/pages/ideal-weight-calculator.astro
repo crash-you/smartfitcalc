@@ -5,9 +5,34 @@ const title =
     "Ideal Weight Calculator - Find Your Healthy Weight | SmartFitCalc";
 const description =
     "Free ideal weight calculator using multiple scientific formulas. Calculate your ideal body weight based on height and gender using Devine, Robinson, Miller, and Hamwi formulas.";
+
+const webAppStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Ideal Weight Calculator",
+    description: description,
+    url: "https://smartfitcalc.com/ideal-weight-calculator",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    provider: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(webAppStructuredData)}
+    />
     <!-- Hero Section -->
     <section class="mb-12 text-center">
         <h1

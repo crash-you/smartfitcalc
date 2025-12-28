@@ -82,9 +82,28 @@ const faqs = [
         ],
     },
 ];
+// Generate FAQPage structured data
+const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.flatMap((section) =>
+        section.questions.map((faq) => ({
+            "@type": "Question",
+            name: faq.q,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.a,
+            },
+        })),
+    ),
+};
 ---
 
 <BaseLayout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(faqStructuredData)}
+    />
     <section class="mb-12 text-center">
         <h1
             class="mb-4 bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"

@@ -4,9 +4,34 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const title = "Body Fat Calculator - US Navy Method | SmartFitCalc";
 const description =
     "Free body fat percentage calculator using the US Navy method. Get accurate results with just your height, neck, waist, and hip measurements.";
+
+const webAppStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Body Fat Calculator",
+    description: description,
+    url: "https://smartfitcalc.com/body-fat-calculator",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    provider: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(webAppStructuredData)}
+    />
     <!-- Hero Section -->
     <section class="mb-12 text-center">
         <h1

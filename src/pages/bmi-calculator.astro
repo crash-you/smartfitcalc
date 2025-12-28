@@ -4,9 +4,34 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const title = "BMI Calculator - Calculate Your Body Mass Index | SmartFitCalc";
 const description =
     "Free BMI calculator to determine your Body Mass Index. Understand if you're underweight, normal weight, overweight, or obese based on your height and weight.";
+
+const webAppStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "BMI Calculator",
+    description: description,
+    url: "https://smartfitcalc.com/bmi-calculator",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    provider: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(webAppStructuredData)}
+    />
     <!-- Hero Section -->
     <section class="mb-12 text-center">
         <h1

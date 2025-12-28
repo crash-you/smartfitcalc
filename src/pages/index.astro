@@ -5,9 +5,34 @@ const title =
 	"TDEE Calculator - Calculate Your Daily Calorie Needs | SmartFitCalc";
 const description =
 	"Free TDEE calculator to determine your Total Daily Energy Expenditure. Get accurate BMR and calorie recommendations for weight loss, maintenance, or muscle gain.";
+
+const webAppStructuredData = {
+	"@context": "https://schema.org",
+	"@type": "WebApplication",
+	name: "TDEE Calculator",
+	description: description,
+	url: "https://smartfitcalc.com/",
+	applicationCategory: "HealthApplication",
+	operatingSystem: "Any",
+	browserRequirements: "Requires JavaScript",
+	offers: {
+		"@type": "Offer",
+		price: "0",
+		priceCurrency: "USD",
+	},
+	provider: {
+		"@type": "Organization",
+		name: "SmartFitCalc",
+		url: "https://smartfitcalc.com",
+	},
+};
 ---
 
 <BaseLayout title={title} description={description}>
+	<script
+		type="application/ld+json"
+		set:html={JSON.stringify(webAppStructuredData)}
+	/>
 	<!-- Hero Section -->
 	<section class="mb-12 text-center">
 		<h1

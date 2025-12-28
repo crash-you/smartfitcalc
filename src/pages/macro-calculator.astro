@@ -4,9 +4,34 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const title = "Macro Calculator - Calculate Your Daily Macros | SmartFitCalc";
 const description =
     "Free macro calculator to determine your optimal protein, carbs, and fat intake. Choose from balanced, low-fat, keto, or high protein diet plans.";
+
+const webAppStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Macro Calculator",
+    description: description,
+    url: "https://smartfitcalc.com/macro-calculator",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    provider: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(webAppStructuredData)}
+    />
     <!-- Hero Section -->
     <section class="mb-12 text-center">
         <h1

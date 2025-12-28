@@ -4,9 +4,34 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const title = "One Rep Max Calculator - Calculate Your 1RM | SmartFitCalc";
 const description =
     "Free 1RM calculator to estimate your one-rep max for any lift. Use multiple formulas including Epley, Brzycki, and Lombardi to find your maximum strength.";
+
+const webAppStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "One Rep Max Calculator",
+    description: description,
+    url: "https://smartfitcalc.com/one-rep-max-calculator",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    provider: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+};
 ---
 
 <BaseLayout title={title} description={description}>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(webAppStructuredData)}
+    />
     <!-- Hero Section -->
     <section class="mb-12 text-center">
         <h1
