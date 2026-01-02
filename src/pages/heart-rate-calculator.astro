@@ -1,0 +1,373 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Target Heart Rate Calculator - Training Zones | SmartFitCalc";
+const description =
+    "Calculate your max heart rate and target heart rate training zones. Optimize your cardio workouts for fat loss, endurance, or performance.";
+
+const webAppStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Heart Rate Zone Calculator",
+    description: description,
+    url: "https://smartfitcalc.com/heart-rate-calculator",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    provider: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+};
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    canonicalUrl="https://smartfitcalc.com/heart-rate-calculator"
+>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(webAppStructuredData)}
+    />
+
+    <!-- Hero Section -->
+    <section class="mb-12 text-center">
+        <h1
+            class="mb-4 bg-gradient-to-r from-red-600 to-rose-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+        >
+            Target Heart Rate Calculator
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            Find your maximum heart rate and training zones to make every
+            workout count. Whether you want to burn fat or improve endurance,
+            training in the right zone is key.
+        </p>
+    </section>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+        <!-- Calculator Form -->
+        <div
+            class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:p-8"
+        >
+            <h2 class="mb-6 text-2xl font-bold text-gray-800">
+                Enter Your Details
+            </h2>
+
+            <form id="hr-form" class="space-y-6">
+                <!-- Age -->
+                <div>
+                    <label
+                        for="age"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Age</label
+                    >
+                    <input
+                        type="number"
+                        id="age"
+                        name="age"
+                        min="10"
+                        max="100"
+                        placeholder="30"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                    />
+                </div>
+
+                <!-- Resting Heart Rate -->
+                <div>
+                    <label
+                        for="rest_hr"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Resting Heart Rate <span
+                            class="text-gray-400 font-normal"
+                            >(Optional, for Karvonen Formula)</span
+                        ></label
+                    >
+                    <input
+                        type="number"
+                        id="rest_hr"
+                        name="rest_hr"
+                        min="30"
+                        max="120"
+                        placeholder="60"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                    />
+                    <p class="mt-1 text-xs text-gray-500">
+                        Measure your pulse for 60 seconds when you first wake
+                        up.
+                    </p>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    class="w-full rounded-xl bg-gradient-to-r from-red-500 to-rose-600 px-6 py-4 font-semibold text-white shadow-lg transition hover:from-red-600 hover:to-rose-700 hover:shadow-xl active:scale-[0.98]"
+                >
+                    Calculate Zones
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden space-y-6">
+            <!-- Max HR Card -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg text-center"
+            >
+                <p
+                    class="text-sm font-medium text-gray-500 uppercase tracking-wider"
+                >
+                    Estimated Max Heart Rate
+                </p>
+                <p class="text-4xl font-extrabold text-gray-800 my-2">
+                    <span id="max-hr-value">0</span>
+                    <span class="text-2xl text-gray-500 font-bold">bpm</span>
+                </p>
+            </div>
+
+            <!-- Zones Checklist -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg"
+            >
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
+                    <h3 class="font-bold text-gray-800">Your Training Zones</h3>
+                </div>
+                <div class="divide-y divide-gray-100">
+                    <!-- Zone 5 -->
+                    <div
+                        class="p-4 flex items-center justify-between hover:bg-red-50 transition"
+                    >
+                        <div>
+                            <span
+                                class="inline-block px-2 py-1 text-xs font-semibold bg-red-100 text-red-700 rounded-md mb-1"
+                                >Zone 5 (90-100%)</span
+                            >
+                            <p class="font-medium text-gray-900">
+                                VO2 Max / Maximum Effort
+                            </p>
+                            <p class="text-sm text-gray-500">
+                                Sprints, intervals. Short bursts only.
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-bold text-gray-800"
+                                ><span id="z5-min">0</span> - <span id="z5-max"
+                                    >0</span
+                                ></span
+                            >
+                            <span class="block text-xs text-gray-500">bpm</span>
+                        </div>
+                    </div>
+
+                    <!-- Zone 4 -->
+                    <div
+                        class="p-4 flex items-center justify-between hover:bg-orange-50 transition"
+                    >
+                        <div>
+                            <span
+                                class="inline-block px-2 py-1 text-xs font-semibold bg-orange-100 text-orange-700 rounded-md mb-1"
+                                >Zone 4 (80-90%)</span
+                            >
+                            <p class="font-medium text-gray-900">
+                                Anaerobic / Hard
+                            </p>
+                            <p class="text-sm text-gray-500">
+                                Improves speed and power.
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-bold text-gray-800"
+                                ><span id="z4-min">0</span> - <span id="z4-max"
+                                    >0</span
+                                ></span
+                            >
+                            <span class="block text-xs text-gray-500">bpm</span>
+                        </div>
+                    </div>
+
+                    <!-- Zone 3 -->
+                    <div
+                        class="p-4 flex items-center justify-between hover:bg-yellow-50 transition"
+                    >
+                        <div>
+                            <span
+                                class="inline-block px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-700 rounded-md mb-1"
+                                >Zone 3 (70-80%)</span
+                            >
+                            <p class="font-medium text-gray-900">
+                                Aerobic / Moderate
+                            </p>
+                            <p class="text-sm text-gray-500">
+                                Improves cardiovascular fitness.
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-bold text-gray-800"
+                                ><span id="z3-min">0</span> - <span id="z3-max"
+                                    >0</span
+                                ></span
+                            >
+                            <span class="block text-xs text-gray-500">bpm</span>
+                        </div>
+                    </div>
+
+                    <!-- Zone 2 -->
+                    <div
+                        class="p-4 flex items-center justify-between hover:bg-green-50 transition"
+                    >
+                        <div>
+                            <span
+                                class="inline-block px-2 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded-md mb-1"
+                                >Zone 2 (60-70%)</span
+                            >
+                            <p class="font-medium text-gray-900">
+                                Fat Burn / Light
+                            </p>
+                            <p class="text-sm text-gray-500">
+                                Best for burning fat and endurance.
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-bold text-gray-800"
+                                ><span id="z2-min">0</span> - <span id="z2-max"
+                                    >0</span
+                                ></span
+                            >
+                            <span class="block text-xs text-gray-500">bpm</span>
+                        </div>
+                    </div>
+
+                    <!-- Zone 1 -->
+                    <div
+                        class="p-4 flex items-center justify-between hover:bg-gray-50 transition"
+                    >
+                        <div>
+                            <span
+                                class="inline-block px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-600 rounded-md mb-1"
+                                >Zone 1 (50-60%)</span
+                            >
+                            <p class="font-medium text-gray-900">
+                                Warm Up / Recovery
+                            </p>
+                            <p class="text-sm text-gray-500">
+                                Gentle movement, recovery.
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-bold text-gray-800"
+                                ><span id="z1-min">0</span> - <span id="z1-max"
+                                    >0</span
+                                ></span
+                            >
+                            <span class="block text-xs text-gray-500">bpm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Section -->
+    <section class="mt-16 grid gap-8 md:grid-cols-2">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                Why Train in Zones?
+            </h2>
+            <p class="text-gray-600">
+                Training in specific heart rate zones allows you to target
+                different metabolic systems. For example, staying in Zone 2 is
+                optimal for burning fat and building an aerobic base, while Zone
+                4 helps increase your tolerance for high-intensity effort.
+            </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">Formulas Used</h2>
+            <p class="text-gray-600">
+                We primarily calculate Max HR using the formula <code
+                    class="bg-gray-100 px-1 rounded">220 - Age</code
+                >. If you provide a Resting Heart Rate, we use the <strong
+                    >Karvonen Formula</strong
+                > which is more accurate as it takes your fitness level into account:
+                <code class="bg-gray-100 px-1 rounded"
+                    >TargetHR = ((MaxHR - RestHR) * %Intensity) + RestHR</code
+                >.
+            </p>
+        </div>
+    </section>
+</BaseLayout>
+
+<script>
+    const form = document.getElementById("hr-form") as HTMLFormElement;
+    const resultsSection = document.getElementById("results-section");
+
+    form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const age = parseFloat(formData.get("age") as string);
+        const restHr = formData.get("rest_hr")
+            ? parseFloat(formData.get("rest_hr") as string)
+            : null;
+
+        // 1. Calculate Max HR (Standard Formula)
+        const maxHr = 220 - age;
+
+        // Helper to calculate zone heart rate
+        const calculateZone = (percentage: number) => {
+            if (restHr) {
+                // Karvonen Formula
+                // Target Heart Rate = ((max HR − resting HR) × %Intensity) + resting HR
+                return Math.round((maxHr - restHr) * percentage + restHr);
+            } else {
+                // Standard Formula
+                return Math.round(maxHr * percentage);
+            }
+        };
+
+        // Calculate Zone Ranges (e.g., Z5: 90%-100%)
+        const z5_min = calculateZone(0.9);
+        const z5_max = calculateZone(1.0);
+
+        const z4_min = calculateZone(0.8);
+        const z4_max = calculateZone(0.9);
+
+        const z3_min = calculateZone(0.7);
+        const z3_max = calculateZone(0.8);
+
+        const z2_min = calculateZone(0.6);
+        const z2_max = calculateZone(0.7);
+
+        const z1_min = calculateZone(0.5);
+        const z1_max = calculateZone(0.6);
+
+        // Update DOM
+        document.getElementById("max-hr-value")!.textContent = maxHr.toString();
+
+        document.getElementById("z5-min")!.textContent = z5_min.toString();
+        document.getElementById("z5-max")!.textContent = z5_max.toString();
+
+        document.getElementById("z4-min")!.textContent = z4_min.toString();
+        document.getElementById("z4-max")!.textContent = z4_max.toString();
+
+        document.getElementById("z3-min")!.textContent = z3_min.toString();
+        document.getElementById("z3-max")!.textContent = z3_max.toString();
+
+        document.getElementById("z2-min")!.textContent = z2_min.toString();
+        document.getElementById("z2-max")!.textContent = z2_max.toString();
+
+        document.getElementById("z1-min")!.textContent = z1_min.toString();
+        document.getElementById("z1-max")!.textContent = z1_max.toString();
+
+        // Show results
+        resultsSection?.classList.remove("hidden");
+        resultsSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+</script>

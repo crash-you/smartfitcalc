@@ -1,0 +1,286 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Water Intake Calculator - Daily Hydration Needs | SmartFitCalc";
+const description =
+    "Calculate your recommended daily water intake based on your weight and activity level. Stay hydrated for optimal health and performance.";
+
+const webAppStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Water Intake Calculator",
+    description: description,
+    url: "https://smartfitcalc.com/water-intake-calculator",
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    provider: {
+        "@type": "Organization",
+        name: "SmartFitCalc",
+        url: "https://smartfitcalc.com",
+    },
+};
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    canonicalUrl="https://smartfitcalc.com/water-intake-calculator"
+>
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(webAppStructuredData)}
+    />
+
+    <!-- Hero Section -->
+    <section class="mb-12 text-center">
+        <h1
+            class="mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-4xl font-extrabold text-transparent md:text-5xl"
+        >
+            Water Intake Calculator
+        </h1>
+        <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            Determine exactly how much water you should drink daily based on
+            your weight, activity level, and climate to maintain optimal
+            hydration.
+        </p>
+    </section>
+
+    <div class="grid gap-8 lg:grid-cols-2">
+        <!-- Calculator Form -->
+        <div
+            class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg md:p-8"
+        >
+            <h2 class="mb-6 text-2xl font-bold text-gray-800">
+                Enter Your Details
+            </h2>
+
+            <form id="water-intake-form" class="space-y-6">
+                <!-- Weight -->
+                <div>
+                    <label
+                        for="weight"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Weight (kg)</label
+                    >
+                    <input
+                        type="number"
+                        id="weight"
+                        name="weight"
+                        min="30"
+                        max="300"
+                        step="0.1"
+                        placeholder="70"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    />
+                </div>
+
+                <!-- Activity Level (minutes per day) -->
+                <div>
+                    <label
+                        for="activity"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                        >Daily Exercise (minutes)</label
+                    >
+                    <input
+                        type="number"
+                        id="activity"
+                        name="activity"
+                        min="0"
+                        max="300"
+                        placeholder="30"
+                        required
+                        class="w-full rounded-lg border border-gray-300 px-4 py-3 transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    />
+                </div>
+
+                <!-- Climate -->
+                <div>
+                    <label class="mb-3 block text-sm font-medium text-gray-700"
+                        >Climate</label
+                    >
+                    <div class="grid grid-cols-2 gap-4">
+                        <label
+                            class="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 p-3 hover:bg-blue-50"
+                        >
+                            <input
+                                type="radio"
+                                name="climate"
+                                value="temperate"
+                                checked
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                            />
+                            <span class="text-gray-700">Temperate</span>
+                        </label>
+                        <label
+                            class="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-200 p-3 hover:bg-orange-50"
+                        >
+                            <input
+                                type="radio"
+                                name="climate"
+                                value="hot"
+                                class="h-4 w-4 text-orange-600 focus:ring-orange-500"
+                            />
+                            <span class="text-gray-700">Hot / Humid</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    class="w-full rounded-xl bg-gradient-to-r from-blue-500 to-cyan-600 px-6 py-4 font-semibold text-white shadow-lg transition hover:from-blue-600 hover:to-cyan-700 hover:shadow-xl active:scale-[0.98]"
+                >
+                    Calculate Water Intake
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden space-y-6">
+            <!-- Recommended Intake -->
+            <div
+                class="rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-6 shadow-lg"
+            >
+                <div class="text-center">
+                    <p
+                        class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-700"
+                    >
+                        Daily Recommended Intake
+                    </p>
+                    <p
+                        class="text-5xl font-extrabold text-blue-600 md:text-6xl"
+                    >
+                        <span id="result-liters">0</span>
+                        <span class="text-3xl">L</span>
+                    </p>
+                    <p class="mt-2 text-lg text-blue-700">
+                        ≈ <span id="result-cups" class="font-bold">0</span> cups (250ml)
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tips Card -->
+            <div
+                class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg"
+            >
+                <h3
+                    class="mb-4 flex items-center gap-2 text-lg font-semibold text-gray-800"
+                >
+                    <svg
+                        class="h-5 w-5 text-blue-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                    </svg>
+                    Hydration Tips
+                </h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex gap-2">
+                        <span class="text-blue-500">•</span>
+                        <span
+                            >Drink a glass of water immediately after waking up.</span
+                        >
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-blue-500">•</span>
+                        <span>Carry a reusable water bottle with you.</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-blue-500">•</span>
+                        <span
+                            >Increase intake if you sweat heavily during
+                            exercise.</span
+                        >
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-blue-500">•</span>
+                        <span
+                            >Eat water-rich foods like cucumber, watermelon, and
+                            oranges.</span
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info Section -->
+    <section class="mt-16 grid gap-8 md:grid-cols-2">
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                Why Hydration Matters?
+            </h2>
+            <p class="text-gray-600">
+                Water is essential for life. It regulates body temperature,
+                lubricates joints, protects sensitive tissues, and helps remove
+                waste. Proper hydration improves energy levels, brain function,
+                and physical performance.
+            </p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
+            <h2 class="mb-4 text-xl font-bold text-gray-800">
+                How It's Calculated?
+            </h2>
+            <p class="text-gray-600">
+                Our calculator uses your body weight as a baseline (approx. 35ml
+                per kg) and adds extra water for physical activity (approx.
+                350-500ml per 30 mins of exercise). We also adjust for hot
+                climates which increase fluid loss through sweat.
+            </p>
+        </div>
+    </section>
+</BaseLayout>
+
+<script>
+    const form = document.getElementById(
+        "water-intake-form",
+    ) as HTMLFormElement;
+    const resultsSection = document.getElementById("results-section");
+
+    form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const weight = parseFloat(formData.get("weight") as string);
+        const activityMinutes = parseFloat(formData.get("activity") as string);
+        const climate = formData.get("climate") as string;
+
+        // Base calculation: 35ml per kg of body weight
+        let waterIntakeMl = weight * 35;
+
+        // Activity adjustment: Add ~12ml per minute of exercise (approx 360ml per 30 mins)
+        waterIntakeMl += activityMinutes * 12;
+
+        // Climate adjustment
+        if (climate === "hot") {
+            waterIntakeMl *= 1.15; // Increase by 15% for hot climate
+        }
+
+        // Convert to Liters and Cups
+        const liters = (waterIntakeMl / 1000).toFixed(1);
+        const cups = Math.round(waterIntakeMl / 250);
+
+        // Update DOM
+        document.getElementById("result-liters")!.textContent = liters;
+        document.getElementById("result-cups")!.textContent = cups.toString();
+
+        // Show results
+        resultsSection?.classList.remove("hidden");
+        resultsSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+</script>
